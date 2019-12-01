@@ -1,13 +1,5 @@
 const url = 'https://www.the-village.ru';
 
-const themes = [
-    'city',
-    'people',
-    'business',
-    'weekend',
-    'children',
-];
-
 function getArticles(theme, count) {
     fetch(`${url}/village/${theme}`)
         .then((res) => res.text())
@@ -35,6 +27,7 @@ function getArticles(theme, count) {
                 newEl.onclick = () => getArticle(article.link);
                 list.appendChild(newEl);
             });
+            document.getElementsByClassName('theme')[0].innerText = theme;
         })
         .catch((err) => console.log(err));
 }
@@ -48,4 +41,7 @@ function getArticle(link) {
         .catch((err) => console.log(err));
 }
 
-getArticles(themes[0], 10);
+export default {
+    getArticles,
+    getArticle,
+};

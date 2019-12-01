@@ -1,8 +1,13 @@
-import fetch from 'node-fetch';
-import dotenv from 'dotenv';
-dotenv.config();
+import TheVillage from './sites/theVillage';
 
-const url = `${process.env.adress}/bot${process.env.token}`;
+const themes = [
+    'city',
+    'people',
+    'business',
+    'weekend',
+    'children',
+];
+const url = `${process.env.ADRESS}/bot${process.env.TOKEN}`;
 
 const chats = new Map();
 
@@ -13,7 +18,7 @@ function getUpdate() {
             console.log(updates);
             updates.result.forEach((update) => {
                 if (update.message) {
-                    const { id, first_name } = update.message.chat;
+                    const { id, first_name, } = update.message.chat;
                     chats.set(id, first_name);
                 }
             });
@@ -43,3 +48,4 @@ function getMe() {
 }
 
 getUpdate();
+TheVillage.getArticles(themes[1],10);
