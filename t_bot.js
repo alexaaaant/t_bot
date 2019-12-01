@@ -20,3 +20,12 @@ function getUpdate() {
         })
         .catch((err) => console.log(err))
 }
+
+
+function getMe() {
+    fetch(`${url}/getMe`)
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err))
+}
+
