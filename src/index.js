@@ -1,12 +1,5 @@
 import TheVillage from './sites/theVillage';
 
-const themes = [
-    'city',
-    'people',
-    'business',
-    'weekend',
-    'children',
-];
 const url = `${process.env.ADRESS}/bot${process.env.TOKEN}`;
 
 const chats = new Map();
@@ -47,5 +40,5 @@ function getMe() {
         .catch((err) => console.log(err));
 }
 
-getUpdate();
-TheVillage.getArticles(themes[1],10);
+// getUpdate();
+TheVillage.getArticles(TheVillage.themes[2],15);

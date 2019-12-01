@@ -1,6 +1,14 @@
 const url = 'https://www.the-village.ru';
 
-function getArticles(theme, count) {
+const themes = [
+    'city',
+    'people',
+    'business',
+    'weekend',
+    'children',
+];
+
+function getArticles(theme = themes[0], count = 10) {
     fetch(`${url}/village/${theme}`)
         .then((res) => res.text())
         .then((html) => {
@@ -44,4 +52,5 @@ function getArticle(link) {
 export default {
     getArticles,
     getArticle,
+    themes,
 };
