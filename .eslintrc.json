@@ -7,6 +7,7 @@
     "env": {
         "es6": true,
         "node": true,
+        "browser": true,
         "commonjs": true
     },
     "globals": {
@@ -21,6 +22,7 @@
             "warn",
             "always"
         ],
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "comma-dangle": ["warn", "always"]
     }
 }
