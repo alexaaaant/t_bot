@@ -1,0 +1,25 @@
+{
+  "name": "t_bot",
+  "version": "1.0.0",
+  "description": "bot for telegram",
+  "main": "t_bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node ./t_bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexaaaant/t_bot.git"
+  },
+  "author": "Sasha Antonenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexaaaant/t_bot/issues"
+  },
+  "homepage": "https://github.com/alexaaaant/t_bot#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "node-fetch": "^2.6.0"
+  }
+}
