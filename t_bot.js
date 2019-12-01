@@ -21,6 +21,13 @@ function getUpdate() {
         .catch((err) => console.log(err))
 }
 
+function sendMessageEveryone() {
+    chats.forEach((personName, chat_id) => {
+        const text = `${personName}, интересная статистика.`
+        sendMessage(chat_id, text)
+    })
+}
+
 function sendMessage(chat_id, text) {
     fetch(encodeURI(`${url}/sendMessage?chat_id=${chat_id}&text=${text}`))
         .then((res) => res.json())
@@ -35,3 +42,4 @@ function getMe() {
         .catch((err) => console.log(err))
 }
 
+getUpdate();
