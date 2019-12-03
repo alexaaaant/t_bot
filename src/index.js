@@ -4,7 +4,7 @@ import Bot from './t_bot';
 const TBot = new Bot();
 
 const allArticles = new Map();
-const r = new RegExp(/^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/,'i');
+const r = new RegExp(/^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4} (([01][0-9])|(2[0-3])):[0-5][0-9]$/, 'i');
 
 function renderArticles(articles) {
     const list = document.getElementsByClassName('articles')[0];
@@ -37,7 +37,7 @@ const selectArticle = (e) => {
 };
 
 const changeInput = (e) => {
-    if(r.test(e.currentTarget.value) && !e.currentTarget.classList.contains('valid')) {
+    if (r.test(e.currentTarget.value) && !e.currentTarget.classList.contains('valid')) {
         e.currentTarget.classList.add('valid');
         e.currentTarget.classList.remove('invalid');
     }
