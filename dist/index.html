@@ -14,8 +14,17 @@
     <div class="articles">
 
     </div>
+    <input type='text' class="popup d-none"></input>
 </body>
 <style>
+    .d-none {
+        display: none;
+    }
+
+    .border-radius {
+        border-radius: 10px;
+    }
+
     .articles {
         display: flex;
         flex-direction: column;
@@ -27,8 +36,16 @@
         background-color: aqua;
         border: 1px solid aqua;
         height: 50px;
-        border-radius: 10px;
         cursor: pointer;
+    }
+
+    .popup {
+        width: 100px;
+        min-height: 30px;
+        background-color: rgba(0, 255, 255, 0.2);
+        border: 2px solid gray;
+        opacity: 0.7;
+        position: absolute;
     }
 </style>
 
