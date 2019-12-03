@@ -9,7 +9,7 @@ const themes = [
 ];
 
 function getArticles(theme = themes[0], count = 10) {
-    fetch(`${url}/village/${theme}`)
+    return fetch(`${url}/village/${theme}`)
         .then((res) => res.text())
         .then((html) => {
             const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -26,16 +26,8 @@ function getArticles(theme = themes[0], count = 10) {
                     preamble: tmpArticle.children[1].lastChild.textContent,
                 });
             });
-
-            const list = document.getElementsByClassName('articles')[0];
-            articlesObj.forEach((article, title) => {
-                const newEl = document.createElement('button');
-                newEl.innerText = title;
-                newEl.className = 'articles__item';
-                newEl.onclick = () => getArticle(article.link);
-                list.appendChild(newEl);
-            });
             document.getElementsByClassName('theme')[0].innerText = theme;
+            return articlesObj;
         })
         .catch((err) => console.log(err));
 }
