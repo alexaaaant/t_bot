@@ -3,18 +3,23 @@ import Bot from './t_bot';
 
 const TBot = new Bot();
 
-console.log(TBot.getMe());
+const allArticles = new Map();
 
 function renderArticles(articles) {
     const list = document.getElementsByClassName('articles')[0];
     articles.forEach((article, title) => {
+        allArticles.set(title, article);
         const newEl = document.createElement('button');
         newEl.innerText = title;
         newEl.className = 'articles__item';
-        // newEl.onclick = () => getArticle(article.link);
+        newEl.onclick = () => selectArticle(title);
         list.appendChild(newEl);
     });
 }
+
+const selectArticle = (title) => {
+    console.log(allArticles.get(title));
+};
 
 // getUpdate();
 TheVillage.getArticles(TheVillage.themes[2], 15)
