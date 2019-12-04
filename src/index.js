@@ -4,7 +4,7 @@ import Bot from './t_bot';
 const TBot = new Bot();
 
 const allArticles = new Map();
-const r = new RegExp(/^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4} (([01][0-9])|(2[0-3])):[0-5][0-9]$/, 'i');
+const r = new RegExp(/(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01]) (([01][0-9])|(2[0-3])):[0-5][0-9]$/, 'i');
 
 function renderArticles(articles) {
     const list = document.getElementsByClassName('articles')[0];
@@ -18,21 +18,32 @@ function renderArticles(articles) {
     });
 }
 
+const createPopup = () => {
+    const popup = document.createElement('input');
+    popup.className = 'popup';
+    return popup;
+};
+
 const selectArticle = (e) => {
     const coords = e.currentTarget.getBoundingClientRect();
     const y = (coords.top + coords.height) - 5;
     const x = (coords.left + coords.width) - 5;
-    const popup = document.getElementsByClassName('popup')[0];
+    const popup = createPopup();
     popup.style.left = `${x}px`;
     popup.style.top = `${y}px`;
-    popup.classList.remove('d-none');
+    document.body.appendChild(popup);
     popup.focus();
     popup.addEventListener('input', changeInput);
-    popup.addEventListener('blur', (e) => {
-        e.currentTarget.classList.add('d-none');
-        e.currentTarget.classList.remove('valid');
-        e.currentTarget.classList.remove('invalid');
-        e.currentTarget.value = '';
+    popup.addEventListener('blur', (event) => {
+        if (event.currentTarget.classList.contains('valid')) {
+            const date = new Date(event.currentTarget.value);
+            e.target.classList.add('planned');
+            setTimeout(() => {
+                e.target.classList.remove('planned');
+                e.target.classList.add('done');
+            }, date - new Date());
+        }
+        document.body.removeChild(popup);
     });
 };
 
