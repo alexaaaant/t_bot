@@ -1,0 +1,2 @@
+const { exec, } = require('child_process');
+exec('node -e "require(\'./tBot\').sendMessage(13131,\'asdadad\')"',{env:{ADRESS:'adradr', TOKEN:'toktok',},} , (e, stdout, stderr) => console.log('erкors', e, stdout, stderr));

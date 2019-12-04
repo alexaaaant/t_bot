@@ -1,12 +1,13 @@
+const fetch = require('node-fetch');
 
 class Bot {
     constructor() {
         this.chats = new Map();
         this.url = `${process.env.ADRESS}/bot${process.env.TOKEN}`;
-
     }
 
     getUpdate() {
+        console.log('dadsada');
         fetch(`${this.url}/getUpdates`)
             .then((res) => res.json())
             .then((updates) => {
@@ -28,8 +29,12 @@ class Bot {
         });
     }
 
-    sendMessage(chat_id, text) {
-        fetch(encodeURI(`${this.url}/sendMessage?chat_id=${chat_id}&text=${text}&parse_mode=markdown`))
+    static sendMessage(chat_id, text) {
+        console.log(process.env.ADRESS, process.env.TOKEN, this.url);
+        fetch(encodeURI(
+            `${process.env.ADRESS}/bot${process.env.TOKEN}/
+            sendMessage?chat_id=${chat_id}&text=${text}&parse_mode=markdown`
+        ))
             .then((res) => res.json())
             .then((data) => console.log(data))
             .catch((err) => console.log(err));
@@ -43,4 +48,4 @@ class Bot {
     }
 }
 
-export default Bot;
+module.exports = Bot;

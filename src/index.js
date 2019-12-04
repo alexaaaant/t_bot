@@ -1,5 +1,5 @@
 import TheVillage from './sites/theVillage';
-import Bot from './t_bot';
+import Bot from './tBot/tBot';
 
 const TBot = new Bot();
 
@@ -38,7 +38,10 @@ const selectArticle = (e) => {
         if (event.currentTarget.classList.contains('valid')) {
             const date = new Date(event.currentTarget.value);
             e.target.classList.add('planned');
+            dir.stdout.on('data', data => console.log(`stdout: ${data}`));
+            dir.stderr.on('data', data => console.log(`stderr: ${data}`));
             setTimeout(() => {
+                // '$env:ADRESS="adsdadasda"; $env:TOKEN='dasdad';  node -e "require('./tBot').sendMessage(13131,'asdadad')"'
                 e.target.classList.remove('planned');
                 e.target.classList.add('done');
             }, date - new Date());
