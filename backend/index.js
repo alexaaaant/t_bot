@@ -1,7 +1,10 @@
 import Koa from 'koa';
 import Router from 'koa-router';
+import request from 'request-promise';
+import jsdom from 'jsdom';
 
 const HTTP_PORT = 3000;
+const url = 'https://www.the-village.ru';
 
 const app = new Koa();
 const router = new Router();
@@ -16,8 +19,22 @@ app
     .use(router.allowedMethods(),);
 
 router
-    .get('/', (ctx, next, ) => {
-        ctx.body = 'Hello World!';
+    .get('/', async (ctx, ) => {
+        const res = await request(`${url}/village/city`,);
+        const dom = new jsdom.JSDOM(res,);
+        let articles = dom.window.document.getElementsByClassName('post-block-featured',);
+        articles = [...articles,].slice(0, 10,);
+        const articlesObj = new Map();
+
+        articles.forEach((article, ) => {
+            const tmpArticle = article.firstChild;
+            const title = tmpArticle.children[1].firstChild.textContent;
+            articlesObj.set(title, {
+                link: `${url}${tmpArticle.href}`,
+                preamble: tmpArticle.children[1].lastChild.textContent,
+            },);
+        },);
+        ctx.body = JSON.stringify([...articlesObj,],);
     },);
 
 app.listen(HTTP_PORT,);

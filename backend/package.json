@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsdom": "^15.2.1",
     "koa": "^2.11.0",
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
   },
   "devDependencies": {
     "koa-router": "^7.4.0"
