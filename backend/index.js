@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import request from 'request-promise';
 import jsdom from 'jsdom';
+import cors from '@koa/cors';
 
 const HTTP_PORT = 3000;
 const url = 'https://www.the-village.ru';
@@ -15,6 +16,7 @@ app
         const rt = ctx.response.get('X-Response-Time',);
         console.log(`${ctx.method} ${ctx.url} - ${rt}`,);
     },)
+    .use(cors({ origin: '*', },),)
     .use(router.routes(),)
     .use(router.allowedMethods(),);
 
