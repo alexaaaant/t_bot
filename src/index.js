@@ -26,8 +26,8 @@ const createPopup = () => {
 
 const selectArticle = (e) => {
     const coords = e.currentTarget.getBoundingClientRect();
-    const y = (coords.top + coords.height) - 5;
-    const x = (coords.left + coords.width) - 5;
+    const y = (window.scrollY + coords.top + coords.height) - 5;
+    const x = (window.scrollX + coords.left + coords.width) - 5;
     const popup = createPopup();
     popup.style.left = `${x}px`;
     popup.style.top = `${y}px`;
