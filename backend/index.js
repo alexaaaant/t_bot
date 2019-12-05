@@ -1,8 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import http from 'http';
 
-const HOST = 'localhost';
 const HTTP_PORT = 3000;
 
 const app = new Koa();
@@ -22,12 +20,5 @@ router
         ctx.body = 'Hello World!';
     },);
 
-
-http.createServer(app.callback(),)
-    .listen(HTTP_PORT, HOST, listeningReporter,);
-
-function listeningReporter() {
-    const { address, port, } = this.address();
-    const protocol = this.addContext ? 'https' : 'http';
-    console.log(`Listening on ${protocol}://${address}:${port}...`,);
-}
+app.listen(HTTP_PORT,);
+console.log('Listeting on http://localhost:3000',);
