@@ -36,6 +36,6 @@ router
         Object.assign(ctx, { body: 'Send success!', },);
     },);
 
-request('http://localhost:3000/api/bot/getUpdates',);
+// request('http://localhost:3000/api/bot/getUpdates',);
 
 export default router;

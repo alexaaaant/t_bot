@@ -2,8 +2,6 @@ import Koa from 'koa';
 import cors from '@koa/cors';
 import routers from './routers/routers';
 
-const HTTP_PORT = 3000;
-
 const app = new Koa();
 
 app
@@ -21,5 +19,5 @@ app
     .use(cors({ origin: '*', },),)
     .use(routers.routes(), routers.allowedMethods(),);
 
-app.listen(HTTP_PORT,);
-console.log('Listeting on http://localhost:3000',);
+app.listen(process.env.PORT,);
+console.log(`Listeting on http://localhost:${process.env.PORT}`,);
