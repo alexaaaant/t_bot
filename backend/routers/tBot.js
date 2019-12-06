@@ -21,9 +21,7 @@ router
         let lastUpdateID = 0;
         if (updates.ok === true && updates.result.length) {
             updates.result.forEach((update, ) => {
-                const text = `${update.message.from.first_name}, 
-                пока что единственное, что я могу сказать абсолютно точно, 
-                что вареники с вишней лучше чем с картошкой`;
+                const text = `${update.message.from.first_name}, пока что единственное, что я могу сказать абсолютно точно, что вареники с вишней лучше чем с картошкой`;
                 request(encodeURI(`http://localhost:3000/api/bot/sendMessage?chat_id=${update.message.chat.id}&text=${text}`,),);
             },);
             lastUpdateID = updates.result[updates.result.length - 1].update_id + 1;

@@ -58,7 +58,7 @@ const changeInput = (e, ) => {
 //     .then((articles) => renderArticles(articles));
 
 const getArticles = async () => {
-    const res = await fetch('http://localhost:3000',);
+    const res = await fetch('http://localhost:3000/api/vc/articles',);
     const articles = await res.json(); 
     console.log(new Map(articles,),);
 };
