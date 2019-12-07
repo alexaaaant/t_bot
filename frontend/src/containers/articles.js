@@ -24,18 +24,17 @@ class Articles {
         const x = (window.scrollX + coords.left + coords.width) - 5;
         this.date = new DateComponent();
         this.date.render(x, y,);
-        this.date.setUnRenderHandler(() => this.planTask(e,),);
+        this.date.setSubmitHandler(() => this.planTask(e,),);
     }
 
     planTask(article, ) {
-        if (this.date.checkValid()) {
-            const dateA = this.date.getDate();
-            article.target.classList.add('planned',);
-            setTimeout(() => {
-                article.target.classList.remove('planned',);
-                article.target.classList.add('done',);
-            }, dateA - new Date(),);
-        }
+        const dateA = this.date.getDate();
+        article.target.classList.add('planned',);
+        console.log('dasdadad',);
+        setTimeout(() => {
+            article.target.classList.remove('planned',);
+            article.target.classList.add('done',);
+        }, dateA - new Date(),);
     }
 
 }

@@ -1,17 +1,27 @@
 class DateComponent {
     constructor() {
-        document.addEventListener('click', (e, ) => this.outsideClickListener(e,),true,);
+        document.addEventListener('click', (e, ) => this.outsideClickListener(e,), true,);
         this.form = null;
         this.isVisible = false;
-        this.onRenderHandler = null;
-        this.r = new RegExp(/(([01][0-9])|(2[0-3])):[0-5][0-9]$/, 'i',);
+        this.submitHandler = null;
+        this.date = null;
+        this.time = null;
     }
     render(x, y, ) {
         this.form = this.createForm();
         this.form.style.left = `${x}px`;
         this.form.style.top = `${y}px`;
-        this.isVisible = true; 
+        this.isVisible = true;
         document.body.appendChild(this.form,);
+    }
+
+    handleSumit(e, ) {
+        e.preventDefault();
+        const { date, time, } = e.target.elements;
+        this.unRender();
+        this.date = date;
+        this.time = time;
+        this.submitHandler();
     }
 
     createForm() {
@@ -19,15 +29,21 @@ class DateComponent {
         const inputDate = document.createElement('input',);
         const inputTime = document.createElement('input',);
         const submitButton = document.createElement('button',);
+        form.addEventListener('submit', (e, ) => this.handleSumit(e,),);
 
         form.className = 'form-date d-flex flex-column';
         inputDate.className = 'form-date__input';
+        inputDate.autofocus = true;
+        inputDate.name = 'date';
         inputDate.placeholder = 'Дата';
+        inputDate.type = 'date';
         inputTime.className = 'form-date__input';
+        inputTime.name = 'time';
+        inputTime.type = 'time';
         inputTime.placeholder = 'Время';
         submitButton.type = 'submit';
         submitButton.className = 'form-date__button';
-        submitButton.textContent = 'Принять';
+        submitButton.textContent = 'Запланировать';
 
         form.appendChild(inputDate,);
         form.appendChild(inputTime,);
@@ -35,29 +51,13 @@ class DateComponent {
         return form;
     }
 
-    changeInput(e, ) {
-        if (this.r.test(this.form.value,) && !this.form.classList.contains('valid',)) {
-            this.form.classList.add('valid',);
-            this.form.classList.remove('invalid',);
-        }
-        if (!this.r.test(this.form.value,) && !this.form.classList.contains('invalid',)) {
-            this.form.classList.add('invalid',);
-            this.form.classList.remove('valid',);
-    }
-    }
-
-    checkValid() {
-        if (this.form !== null) {
-            return this.form.classList.contains('valid',);
-        }
-    }
-
     getDate() {
-        return new Date(this.form.value,);
+        if (!this.date.value || !this.time.value) return null;
+        return new Date(this.date.value + ' ' + this.time.value,);
     }
 
-    setUnRenderHandler(handler, ) {
-        this.onRenderHandler = handler;
+    setSubmitHandler(handler, ) {
+        this.submitHandler = handler;
     }
 
     unRender() {
