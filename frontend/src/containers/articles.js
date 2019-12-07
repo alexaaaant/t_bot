@@ -18,23 +18,29 @@ class Articles {
         },);
     }
 
-    selectArticle(e, ) {
+    selectArticle(e, title,) {
         const coords = e.currentTarget.getBoundingClientRect();
         const y = (window.scrollY + coords.top + coords.height) - 5;
         const x = (window.scrollX + coords.left + coords.width) - 5;
         this.date = new DateComponent();
         this.date.render(x, y,);
-        this.date.setSubmitHandler(() => this.planTask(e,),);
+        this.date.setSubmitHandler(() => this.planTask(e,title,),);
     }
 
-    planTask(article, ) {
+    planTask(article, title,) {
         const dateA = this.date.getDate();
+        const text = this.createText(title,);
+        console.log(text,);
         article.target.classList.add('planned',);
-        console.log('dasdadad',);
         setTimeout(() => {
             article.target.classList.remove('planned',);
             article.target.classList.add('done',);
         }, dateA - new Date(),);
+    }
+
+    createText(title,) {
+        const article = this.allArticles.get(title,);
+        return `*${title}*\n${article.preamble}\n${article.link}`;
     }
 
 }
