@@ -15,7 +15,7 @@ class DateComponent {
         document.body.appendChild(this.form,);
     }
 
-    handleSumit(e, ) {
+    handleSubmit(e, ) {
         e.preventDefault();
         const { date, time, } = e.target.elements;
         this.unRender();
@@ -29,7 +29,7 @@ class DateComponent {
         const inputDate = document.createElement('input',);
         const inputTime = document.createElement('input',);
         const submitButton = document.createElement('button',);
-        form.addEventListener('submit', (e, ) => this.handleSumit(e,),);
+        form.addEventListener('submit', (e, ) => this.handleSubmit(e,),);
 
         form.className = 'form-date d-flex flex-column';
         inputDate.className = 'form-date__input';
