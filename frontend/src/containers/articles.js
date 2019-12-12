@@ -30,7 +30,7 @@ class Articles {
     planTask(article, title, ) {
         const chat_id = 9408538;
         const date = this.date.getDate();
-        article.id = chat_id + date.getDate() + date.getHours() + Math.random();
+        article.id = chat_id + date.getDate() + date.getHours() + Math.floor(Math.random() * 100000,);
         let day = date.getDate();
         let month = date.getMonth() + 1;
         const year = date.getFullYear();
@@ -52,9 +52,15 @@ class Articles {
         const timeStr = `${hours}:${minunes}`;
         const text = this.createText(title,);
         fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}&task_id=${article.id}`,),)
-            .then(() => {
-                article.classList.add('planned',);
-            },);
+            .then((res, ) => {
+                if (res.ok) {
+                    console.log(res,);
+                    article.classList.add('planned',);
+                } else {
+                    throw 'error';
+                }
+            },)
+            .catch((e, ) => console.log('e', e,),);
     }
 
     static doneTask(id, ) {
@@ -65,7 +71,7 @@ class Articles {
 
     createText(title, ) {
         const article = this.allArticles.get(title,);
-        return '*ура*нахуй';
+        return `*${title}*\n\n${article.preamble}\n${article.link}`;
     }
 
 }

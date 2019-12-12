@@ -1,6 +1,6 @@
 const { Pool, } = require('pg',);
 
-const pool = new Pool;
+const pool = new Pool();
 
 const getAllMessages = () => {
     return pool.query('select * from messages',)
@@ -9,7 +9,7 @@ const getAllMessages = () => {
 
         },)
         .catch((err, ) => {
-            return err;
+            throw err;
         },);
 };
 
@@ -20,7 +20,7 @@ const insertMessage = (taskId, chatId, text, date, ) => {
             return res;
         },)
         .catch((err, ) => {
-            return err;
+            throw err;
         },);
 };
 
@@ -30,7 +30,7 @@ const getMessage = (taskId, ) => {
             return res.rows[0];
         },)
         .catch((err, ) => {
-            return err;
+            throw err;
         },);
 };
 

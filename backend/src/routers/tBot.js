@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import request from 'request-promise';
 import dotenv from 'dotenv';
-import { exec, } from 'child_process';
+import { getMessage, } from '../bd/index';
 
 dotenv.config();
 
@@ -33,11 +33,22 @@ router
 
 router
     .get('/sendMessage', async (ctx, ) => {
-        const { chat_id, text, task, } = ctx.request.query;
-
+        const { chat_id, text, } = ctx.request.query;
         await request(encodeURI(`${url}/sendMessage?chat_id=${chat_id}&text=${text}&parse_mode=markdown`,),);
+        Object.assign(ctx, { body: 'Send success!', },);
+    },);
 
-        request(`http://localhost:${process.env.PORT}/api/task/delete?${task}`,);
+router
+    .get('/sendPlannedMessage', async (ctx, ) => {
+        const { task, } = ctx.request.query;
+        getMessage(task,)
+            .then((res, ) => {
+                request(encodeURI(`http://localhost:${process.env.PORT}/api/bot/sendMessage?chat_id=${res.chat_id}&text=${res.text}`,),)
+                    .then(() => {
+                        request(`http://localhost:${process.env.PORT}/api/task/delete?task=${task}`,);
+                    },);
+            },)
+            .catch((err, ) => console.log(err,),);
         Object.assign(ctx, { body: 'Send success!', },);
     },);
 
