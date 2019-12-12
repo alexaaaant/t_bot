@@ -30,7 +30,7 @@ class Articles {
     planTask(article, title, ) {
         const chat_id = 9408538;
         const date = this.date.getDate();
-        article.id = chat_id + date.getDate() + date.getHours();
+        article.id = chat_id + date.getDate() + date.getHours() + Math.random();
         let day = date.getDate();
         let month = date.getMonth() + 1;
         const year = date.getFullYear();
@@ -65,7 +65,7 @@ class Articles {
 
     createText(title, ) {
         const article = this.allArticles.get(title,);
-        return `*${title}*\n${article.preamble}\n${article.link}`;
+        return '*ура*нахуй';
     }
 
 }
