@@ -14,7 +14,7 @@ const getAllMessages = () => {
 };
 
 const insertMessage = (taskId, chatId, text, date, ) => {
-    return pool.query(`INSERT INTO messages VALUES
+    return pool.query(`insert into messages values
     (${taskId},${chatId}, '${text}', '${date}')`,)
         .then((res, ) => {
             return res;
@@ -24,7 +24,18 @@ const insertMessage = (taskId, chatId, text, date, ) => {
         },);
 };
 
+const getMessage = (taskId, ) => {
+    return pool.query(`select * from messages where task_id=${taskId}`,)
+        .then((res, ) => {
+            return res.rows[0];
+        },)
+        .catch((err, ) => {
+            return err;
+        },);
+};
+
 export {
     getAllMessages,
     insertMessage,
+    getMessage,
 };
