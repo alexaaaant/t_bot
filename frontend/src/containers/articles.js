@@ -54,7 +54,6 @@ class Articles {
         fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}&task_id=${article.id}`,),)
             .then((res, ) => {
                 if (res.ok) {
-                    console.log(res,);
                     article.classList.add('planned',);
                 } else {
                     throw 'error';

@@ -45,7 +45,7 @@ router
             .then((res, ) => {
                 request(encodeURI(`http://localhost:${process.env.PORT}/api/bot/sendMessage?chat_id=${res.chat_id}&text=${res.text}`,),)
                     .then(() => {
-                        request(`http://localhost:${process.env.PORT}/api/task/delete?task=${task}`,);
+                        request(`http://localhost:${process.env.PORT}/api/task/done?task_id=${task}`,);
                     },);
             },)
             .catch((err, ) => console.log(err,),);
