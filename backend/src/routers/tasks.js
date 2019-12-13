@@ -30,4 +30,16 @@ router.get('/delete', async (ctx, ) => {
     Object.assign(ctx, { body: 'Success', },);
 },);
 
+router.get('/shortLink', async (ctx, ) => {
+    const { url, } = ctx.request.query;
+    const res = await request({
+        uri: 'https://cutt.ly/scripts/shortenUrl.php',
+        method: 'POST',
+        form: {
+            url: url,
+        },
+
+    },);
+    Object.assign(ctx, { body: JSON.stringify({ url: res, },), },);
+},);
 export default router;

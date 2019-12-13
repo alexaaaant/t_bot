@@ -27,7 +27,7 @@ class Articles {
         this.date.setSubmitHandler(() => this.planTask(e.target, title,),);
     }
 
-    planTask(article, title, ) {
+    async planTask(article, title, ) {
         const chat_id = 9408538;
         const date = this.date.getDate();
         article.id = chat_id + date.getDate() + date.getHours() + Math.floor(Math.random() * 100000,);
@@ -50,7 +50,7 @@ class Articles {
         }
         const dateStr = `${day}.${month}.${year}`;
         const timeStr = `${hours}:${minunes}`;
-        const text = this.createText(title,);
+        const text = await this.createText(title,);
         fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}&task_id=${article.id}`,),)
             .then((res, ) => {
                 if (res.ok) {
@@ -68,9 +68,11 @@ class Articles {
         article.classList.add('done',);
     }
 
-    createText(title, ) {
+    async createText(title, ) {
         const article = this.allArticles.get(title,);
-        return `*${title}*\n\n${article.preamble}\n${article.link}`;
+        const res = await fetch(`http://localhost:${process.env.PORT}/api/task/shortLink?url=${article.link}`,);
+        const url = await res.json();
+        return `*${title}*\n\n${article.preamble}\n${url.url}`;
     }
 
 }
