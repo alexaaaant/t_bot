@@ -2,6 +2,8 @@ import Koa from 'koa';
 import cors from '@koa/cors';
 import routers from './routers/routers';
 import dotenv from 'dotenv';
+import io from 'socket.io';
+import http from 'http';
 dotenv.config();
 
 const app = new Koa();
@@ -18,8 +20,19 @@ app
         const ms = Date.now() - start;
         ctx.set('X-Response-Time', `${ms}ms`,);
     },)
-    .use(cors({ origin: '*', },),)
+    .use(cors({ origin: 'http://localhost:8000', credentials: true, },),)
     .use(routers.routes(), routers.allowedMethods(),);
 
-app.listen(process.env.PORT,);
+const server = http.createServer(app.callback(),);
+
+server.listen(process.env.PORT,);
+
+const webSocket = io.listen(server,);
+
+webSocket.on('connection', (socket, ) => {
+    console.log('a user connected',);
+    socket.broadcast.emit('hi',);
+},);
+
+
 console.log(`Listeting on http://localhost:${process.env.PORT}`,);

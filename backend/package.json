@@ -17,7 +17,8 @@
     "nodemon": "^2.0.1",
     "pg": "^7.14.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "koa-router": "^7.4.0"
