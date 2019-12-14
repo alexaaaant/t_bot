@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import { exec, } from 'child_process';
 import { insertMessage, changeMessageStatus, } from '../bd/index';
 import request from 'request-promise';
+import webSocket from '../index';
 
 const router = new Router({ prefix: '/task', },);
 
@@ -17,6 +18,7 @@ router.get('/done', async (ctx, ) => {
     const { task_id, } = ctx.request.query;
     await changeMessageStatus(task_id, 1,);
     await request(`http://localhost:${process.env.PORT}/api/task/delete?task_id=${task_id}`,);
+    webSocket.sockets.emit('task_done', { task_id, },);
     Object.assign(ctx, { body: 'Success', },);
 },);
 

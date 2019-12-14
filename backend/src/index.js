@@ -31,8 +31,8 @@ const webSocket = io.listen(server,);
 
 webSocket.on('connection', (socket, ) => {
     console.log('a user connected',);
-    socket.broadcast.emit('hi',);
 },);
 
-
 console.log(`Listeting on http://localhost:${process.env.PORT}`,);
+
+export default webSocket;

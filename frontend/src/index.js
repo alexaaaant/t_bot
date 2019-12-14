@@ -1,8 +1,7 @@
 import ArticlesContainer from './containers/articles';
-import io from 'socket.io-client';
+import socket from './webSocket';
 
 const Articles = new ArticlesContainer();
-const socket = io('http://localhost:3000',);
 
 const getArticles = async () => {
     const res = await fetch('http://localhost:3000/api/vc/articles',);
