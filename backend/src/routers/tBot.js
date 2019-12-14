@@ -41,14 +41,9 @@ router
 router
     .get('/sendPlannedMessage', async (ctx, ) => {
         const { task, } = ctx.request.query;
-        getMessage(task,)
-            .then((res, ) => {
-                request(encodeURI(`http://localhost:${process.env.PORT}/api/bot/sendMessage?chat_id=${res.chat_id}&text=${res.text}`,),)
-                    .then(() => {
-                        request(`http://localhost:${process.env.PORT}/api/task/done?task_id=${task}`,);
-                    },);
-            },)
-            .catch((err, ) => console.log(err,),);
+        const res = await getMessage(task,);
+        await request(encodeURI(`http://localhost:${process.env.PORT}/api/bot/sendMessage?chat_id=${res.chat_id}&text=${res.text}`,),);
+        await request(`http://localhost:${process.env.PORT}/api/task/done?task_id=${task}`,);
         Object.assign(ctx, { body: 'Send success!', },);
     },);
 

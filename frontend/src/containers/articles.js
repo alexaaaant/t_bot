@@ -30,7 +30,6 @@ class Articles {
     async planTask(article, title, ) {
         const chat_id = 9408538;
         const date = this.date.getDate();
-        article.id = chat_id + date.getDate() + date.getHours() + Math.floor(Math.random() * 100000,);
         let day = date.getDate();
         let month = date.getMonth() + 1;
         const year = date.getFullYear();
@@ -51,10 +50,14 @@ class Articles {
         const dateStr = `${day}.${month}.${year}`;
         const timeStr = `${hours}:${minunes}`;
         const text = await this.createText(title,);
-        fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}&task_id=${article.id}`,),)
+        fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}`,),)
             .then((res, ) => {
                 if (res.ok) {
-                    article.classList.add('planned',);
+                    res.json()
+                        .then((body, ) => {
+                            article.id = body.id;
+                            article.classList.add('planned',);
+                        },);
                 } else {
                     throw 'error';
                 }

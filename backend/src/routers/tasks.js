@@ -6,11 +6,11 @@ import request from 'request-promise';
 const router = new Router({ prefix: '/task', },);
 
 router.get('/plan', async (ctx, ) => {
-    const { chat_id, text, date, time, task_id, } = ctx.request.query;
-    await insertMessage(task_id, chat_id, text, `${date} ${time}`, 0,);
-    exec(`SCHTASKS /CREATE /SC ONCE /TN TASK${task_id} /TR "powershell Invoke-WebRequest http://localhost:3000/api/bot/sendPlannedMessage?task=${task_id} -UseBasicParsing" /SD ${date} /ST ${time}`,
+    const { chat_id, text, date, time, } = ctx.request.query;
+    const res = await insertMessage(chat_id, text, `${date} ${time}`, 0,);
+    exec(`SCHTASKS /CREATE /SC ONCE /TN TASK${res.id} /TR "powershell Invoke-WebRequest http://localhost:3000/api/bot/sendPlannedMessage?task=${res.id} -UseBasicParsing" /SD ${date} /ST ${time}`,
         (e, stdout, stderr, ) => console.log('errors', e, stdout, stderr,),);
-    Object.assign(ctx, { body: 'Success', },);
+    Object.assign(ctx, { body: JSON.stringify(res,), },);
 },);
 
 router.get('/done', async (ctx, ) => {

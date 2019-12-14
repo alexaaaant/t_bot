@@ -13,11 +13,10 @@ const getAllMessages = () => {
         },);
 };
 
-const insertMessage = (taskId, chatId, text, date, status, ) => {
-    return pool.query(`insert into messages values
-    (${taskId},${chatId}, '${text}', '${date}', ${status})`,)
+const insertMessage = (chatId, text, date, status, ) => {
+    return pool.query(`insert into messages values (${chatId}, '${text}', '${date}', ${status}) returning id`,)
         .then((res, ) => {
-            return res;
+            return res.rows[0];
         },)
         .catch((err, ) => {
             throw err;
@@ -25,7 +24,7 @@ const insertMessage = (taskId, chatId, text, date, status, ) => {
 };
 
 const getMessage = (taskId, ) => {
-    return pool.query(`select * from messages where task_id=${taskId}`,)
+    return pool.query(`select * from messages where id=${taskId}`,)
         .then((res, ) => {
             return res.rows[0];
         },)
@@ -35,7 +34,7 @@ const getMessage = (taskId, ) => {
 };
 
 const changeMessageStatus = (taskId, status, ) => {
-    return pool.query(`update messages set status=${status} where task_id=${taskId}`,)
+    return pool.query(`update messages set status=${status} where id=${taskId}`,)
         .then((res, ) => {
             return res.rows[0];
         },)
