@@ -27,14 +27,12 @@ class Articles {
         this.date.setSubmitHandler(() => this.planTask(e.target, title,),);
     }
 
-    async planTask(article, title, ) {
-        const chat_id = 9408538;
-        const date = this.date.getDate();
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        let hours = date.getHours();
-        let minunes = date.getMinutes();
+    formattingDate(dateWithoutFormatting, ) {
+        let day = dateWithoutFormatting.getDate();
+        let month = dateWithoutFormatting.getMonth() + 1;
+        const year = dateWithoutFormatting.getFullYear();
+        let hours = dateWithoutFormatting.getHours();
+        let minunes = dateWithoutFormatting.getMinutes();
         if (day < 10) {
             day = '0' + day;
         }
@@ -47,8 +45,17 @@ class Articles {
         if (hours < 10) {
             hours = '0' + hours;
         }
-        const dateStr = `${day}.${month}.${year}`;
-        const timeStr = `${hours}:${minunes}`;
+        return {
+            dateStr: `${day}.${month}.${year}`,
+            timeStr: `${hours}:${minunes}`,
+        };
+    }
+
+    async planTask(article, title, ) {
+        const chat_id = 9408538;
+        const dateWithoutFormatting = this.date.getDate();
+        const { dateStr, timeStr, } = this.formattingDate(dateWithoutFormatting,);
+
         const text = await this.createText(title,);
         fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}`,),)
             .then((res, ) => {
@@ -59,7 +66,7 @@ class Articles {
                             article.classList.add('planned',);
                         },);
                 } else {
-                    throw 'error';
+                    throw res;
                 }
             },)
             .catch((e, ) => console.log('e', e,),);
