@@ -6,7 +6,6 @@ const getAllMessages = () => {
     return pool.query('select * from messages',)
         .then((res, ) => {
             return res.rows;
-
         },)
         .catch((err, ) => {
             throw err;
