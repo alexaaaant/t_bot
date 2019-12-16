@@ -25,7 +25,15 @@ class Messages {
         messages.forEach((message, ) => {
             const messageElement = document.createElement('div',);
             messageElement.className = 'message';
-            messageElement.innerText = message.text;
+            const textElement = document.createElement('span',);
+            textElement.innerText = message.text;
+            messageElement.appendChild(textElement,);
+
+            const dateElement = document.createElement('span',);
+            dateElement.innerText = message.date;
+            dateElement.className = 'message__date';
+            messageElement.appendChild(dateElement,);
+
             if (message.status === '0') {
                 messageElement.classList.add('message_to-do',);
                 messagesListTodo.appendChild(messageElement,);
@@ -37,7 +45,7 @@ class Messages {
         },);
         todoMessages.appendChild(messagesListTodo,);
         doneMessages.appendChild(messagesListDone,);
-        
+
         container.appendChild(todoMessages,);
         container.appendChild(doneMessages,);
         document.body.appendChild(container,);

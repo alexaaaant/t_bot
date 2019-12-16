@@ -22,18 +22,31 @@
 
     .message {
         width: 270px;
-        min-height: 70px;
         height: auto;
         margin: 5px;
         border-radius: 10px;
         overflow: hidden;
         padding: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .messages {
+        margin: 0 10px;
+    }
+
+    .message__date {
+        text-align: right;
     }
 
     .messages__list {
         height: 90vh;
         overflow-x: auto;
         width: max-content;
+    }
+
+    .messages__container:first-child {
+        margin-right: 20px;
     }
 
     .message_to-do {
