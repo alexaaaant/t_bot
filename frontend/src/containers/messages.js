@@ -10,11 +10,7 @@ class Messages {
         const { messagesList: messagesListDone, messages: doneMessages, } = this.createColumn('Done',);
 
         messages.forEach((message, ) => {
-            const messageElement = document.createElement('div',);
-            messageElement.className = 'message';
-            const textElement = document.createElement('span',);
-            textElement.innerText = message.text;
-            messageElement.appendChild(textElement,);
+            const messageElement = this.createMessage(message.text,);
 
             const dateElement = document.createElement('span',);
             dateElement.innerText = message.date;
@@ -46,6 +42,14 @@ class Messages {
         const messagesList = document.createElement('div',);
         messagesList.className = 'messages__list';
         return { messagesList, messages, };
+    }
+    createMessage(text, ) {
+        const messageElement = document.createElement('div',);
+        messageElement.className = 'message';
+        const textElement = document.createElement('span',);
+        textElement.innerText = text;
+        messageElement.appendChild(textElement,);
+        return messageElement;
     }
 }
 
