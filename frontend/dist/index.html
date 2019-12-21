@@ -77,6 +77,7 @@
         background-color: #0f4c81;
         color: white;
         resize: vertical;
+        min-height: 100px;
     }
 
     .form-date__button {
@@ -101,11 +102,11 @@
     }
 
     .form-date {
-        width: 150px;
+        width: 500px;
+        height: 550px;
         background-color: rgb(216, 225, 225);
         border-radius: 10px;
         padding: 20px;
-        position: absolute;
     }
 
     .border-radius {
@@ -154,22 +155,26 @@
     .create-button {
         width: 60px;
         height: 60px;
+        right: 30px;
+        bottom: 30px;
         position: absolute;
         background: #0f4c81;
         border-radius: 50%;
         transition: transform 0.3s ease;
     }
 
-    .creating-container {
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        right: 30px;
-        bottom: 30px;
-    }
-
     .create-button:hover {
         transform: scale3d(1.2, 1.2, 1.2);
+    }
+
+    .form-container {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 

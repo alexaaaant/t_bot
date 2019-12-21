@@ -13,13 +13,10 @@ class CreateButton {
         this.button.classList.add('create-button',);
         this.button.addEventListener('click', () => this.handleClick(),);
 
-        this.container = document.createElement('div',);
-        this.container.classList.add('creating-container',);
-        this.container.appendChild(this.button,);
-        return this.container;
+        return this.button;
     }
     handleClick() {
-        this.container.appendChild(this.dateComponent.render(-130, -175,),);
+        document.body.appendChild(this.dateComponent.render(0, 0,),);
         console.log('handleClick',);
     }
     something() {

@@ -5,14 +5,16 @@ class DateComponent {
         this.submitHandler = null;
         this.date = null;
         this.time = null;
+        this.formContainer = null;
     }
-    render(x, y, ) {
+    render() {
         this.form = this.createForm();
-        this.form.style.left = `${x}px`;
-        this.form.style.top = `${y}px`;
         this.isVisible = true;
         document.addEventListener('click', (e, ) => this.outsideClickListener(e,), true,);
-        return this.form;
+        this.formContainer = document.createElement('div',);
+        this.formContainer.classList.add('form-container',);
+        this.formContainer.appendChild(this.form,);
+        return this.formContainer;
     }
 
     handleSubmit(e, ) {
@@ -43,7 +45,7 @@ class DateComponent {
         inputTime.type = 'time';
         inputTime.placeholder = 'Время';
         textArea.className = 'form-date__text';
-        
+
         submitButton.type = 'submit';
         submitButton.className = 'form-date__button';
         submitButton.textContent = 'Запланировать';
@@ -66,7 +68,7 @@ class DateComponent {
 
     unRender() {
         this.isVisible = false;
-        this.form.remove();
+        this.formContainer.remove();
     }
 
     outsideClickListener(event, ) {
