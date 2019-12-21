@@ -6,21 +6,8 @@ class Messages {
         const container = document.createElement('div',);
         container.className = 'messages d-flex';
 
-        const todoMessages = document.createElement('div',);
-        const headerTodo = document.createElement('h4',);
-        todoMessages.className = 'messages__container';
-        headerTodo.innerText = 'To do';
-        todoMessages.appendChild(headerTodo,);
-        const messagesListTodo = document.createElement('div',);
-        messagesListTodo.className = 'messages__list';
-
-        const doneMessages = document.createElement('div',);
-        const headerDone = document.createElement('h4',);
-        doneMessages.className = 'messages__container';
-        headerDone.innerText = 'Done';
-        doneMessages.appendChild(headerDone,);
-        const messagesListDone = document.createElement('div',);
-        messagesListDone.className = 'messages__list';
+        const { messagesList: messagesListTodo, messages: todoMessages, } = this.createColumn('To do',);
+        const { messagesList: messagesListDone, messages: doneMessages, } = this.createColumn('Done',);
 
         messages.forEach((message, ) => {
             const messageElement = document.createElement('div',);
@@ -49,6 +36,16 @@ class Messages {
         container.appendChild(todoMessages,);
         container.appendChild(doneMessages,);
         document.body.appendChild(container,);
+    }
+    createColumn(name, ) {
+        const messages = document.createElement('div',);
+        const header = document.createElement('h4',);
+        messages.className = 'messages__container';
+        header.innerText = name;
+        messages.appendChild(header,);
+        const messagesList = document.createElement('div',);
+        messagesList.className = 'messages__list';
+        return { messagesList, messages, };
     }
 }
 
