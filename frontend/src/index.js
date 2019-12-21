@@ -18,7 +18,7 @@ const getAllMessages = async () => {
     Messages.render(messages,);
     const button = Button.render();
     document.body.appendChild(button,);
-};
+};  
 
 getAllMessages();
 

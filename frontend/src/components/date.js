@@ -1,6 +1,5 @@
 class DateComponent {
     constructor() {
-        document.addEventListener('click', (e, ) => this.outsideClickListener(e,), true,);
         this.form = null;
         this.isVisible = false;
         this.submitHandler = null;
@@ -12,7 +11,8 @@ class DateComponent {
         this.form.style.left = `${x}px`;
         this.form.style.top = `${y}px`;
         this.isVisible = true;
-        document.body.appendChild(this.form,);
+        document.addEventListener('click', (e, ) => this.outsideClickListener(e,), true,);
+        return this.form;
     }
 
     handleSubmit(e, ) {
@@ -62,7 +62,7 @@ class DateComponent {
 
     unRender() {
         this.isVisible = false;
-        document.body.removeChild(this.form,);
+        this.form.remove();
     }
 
     outsideClickListener(event, ) {
