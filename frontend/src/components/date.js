@@ -28,6 +28,7 @@ class DateComponent {
         const form = document.createElement('form',);
         const inputDate = document.createElement('input',);
         const inputTime = document.createElement('input',);
+        const textArea = document.createElement('textarea',);
         const submitButton = document.createElement('button',);
         form.addEventListener('submit', (e, ) => this.handleSubmit(e,),);
 
@@ -41,12 +42,15 @@ class DateComponent {
         inputTime.name = 'time';
         inputTime.type = 'time';
         inputTime.placeholder = 'Время';
+        textArea.className = 'form-date__text';
+        
         submitButton.type = 'submit';
         submitButton.className = 'form-date__button';
         submitButton.textContent = 'Запланировать';
 
         form.appendChild(inputDate,);
         form.appendChild(inputTime,);
+        form.appendChild(textArea,);
         form.appendChild(submitButton,);
         return form;
     }
