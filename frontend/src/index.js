@@ -14,19 +14,19 @@ const getAllMessages = async () => {
     const doneMessages = messages.filter((message, ) => message.status === '1',);
     const todoColumn = Messages.createColumn('To do', todoMessages,);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
+    const articleColumn = Articles.getColumn();
 
-    const button = Button.render();
-    document.body.appendChild(button,);
+    Button.render();
 
     Messages.render();
     Messages.addColumn(todoColumn,);
     Messages.addColumn(doneColumn,);
+    Messages.addColumn(articleColumn,);
 
     const result = await fetch('http://localhost:3000/api/vc/articles',);
     const articles = await result.json();
-    const articleColumn = await Articles.render(new Map(articles,),);
+    Articles.render(new Map(articles,),);
 
-    Messages.addColumn(articleColumn,);
 };
 
 getAllMessages();

@@ -6,20 +6,21 @@ class Articles {
     constructor() {
         this.allArticles = new Map();
         this.date = null;
-
+        this.column = new Column('Articles',);
     }
     async render(articles, ) {
-        const list = document.getElementsByClassName('articles',)[0];
         const articlesArray = [...articles.entries(),];
-        const messages = [];
         for (let i = 0; i < articlesArray.length; i++) {
             this.allArticles.set(articlesArray[i][0], articlesArray[i][1],);
             const newEl = await this.createArticleElement(articlesArray[i][0],);
             // newEl.onclick = (e, ) => this.selectArticle(e, title,);
             // list.appendChild(newEl,);
-            messages.push(newEl,);
+            this.column.addMessage(newEl,);
         }
-        return new Column('Articles', messages,).render();
+    }
+
+    getColumn() {
+        return this.column.render();
     }
 
     async createArticleElement(title, ) {

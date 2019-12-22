@@ -13,7 +13,7 @@ class CreateButton {
         this.button.classList.add('create-button',);
         this.button.addEventListener('click', () => this.handleClick(),);
 
-        return this.button;
+        document.body.appendChild(this.button,);
     }
     handleClick() {
         document.body.appendChild(this.dateComponent.render(0, 0,),);

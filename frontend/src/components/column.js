@@ -2,22 +2,27 @@ class Column {
     constructor(name, messages = [], ) {
         this.name = name;
         this.messages = messages;
+        this.column = null;
+        this.messagesList = document.createElement('div',);
+        this.messagesList.className = 'messages__list';
     }
     render() {
-        const messagesElement = document.createElement('div',);
+        this.column = document.createElement('div',);
         const header = document.createElement('h4',);
-        messagesElement.className = 'messages__container';
+        this.column.className = 'messages__container';
         header.innerText = this.getName();
-        messagesElement.appendChild(header,);
-        const messagesList = document.createElement('div',);
-        messagesList.className = 'messages__list';
+        this.column.appendChild(header,);
+
         const messages = this.getMessages();
         messages.forEach((message, ) => {
-            messagesList.appendChild(message.render(),);
+            this.addMessage(message,);
         },);
-        messagesElement.appendChild(messagesList,);
+        this.column.appendChild(this.messagesList,);
 
-        return messagesElement;
+        return this.column;
+    }
+    addMessage(message, ) {
+        this.messagesList.appendChild(message.render(),);
     }
     getName() {
         return this.name;
