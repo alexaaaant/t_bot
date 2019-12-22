@@ -1,4 +1,5 @@
 import DateComponent from '../components/date';
+import Message from '../components/message';
 
 class Articles {
     constructor() {
@@ -8,14 +9,18 @@ class Articles {
     }
     render(articles, ) {
         const list = document.getElementsByClassName('articles',)[0];
-        articles.forEach((article, title, ) => {
+        articles.forEach(async (article, title, ) => {
             this.allArticles.set(title, article,);
-            const newEl = document.createElement('button',);
-            newEl.innerText = title;
-            newEl.className = 'articles__item border-radius';
+            const newEl = await this.createArticleElement(title,);
+            newEl.classList.add('articles__item',);
             newEl.onclick = (e, ) => this.selectArticle(e, title,);
             list.appendChild(newEl,);
         },);
+    }
+
+    async createArticleElement(title, ) {
+        const text = await this.createText(title,);
+        return new Message(text,).render();
     }
 
     selectArticle(e, title, ) {
