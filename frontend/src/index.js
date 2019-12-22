@@ -4,7 +4,7 @@ import CreateButton from './components/createButton';
 import DateComponent from './components/date';
 import './webSocket';
 
-const planTask = async (params, message,) => {
+const planTask = async (params, message, ) => {
     const chat_id = 9408538;
     const { date, time, text, } = params;
     fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${date}&time=${time}&chat_id=${chat_id}`,),)
@@ -12,8 +12,10 @@ const planTask = async (params, message,) => {
             if (res.ok) {
                 res.json()
                     .then((body, ) => {
-                        message.messageElement.id = body.id;
-                        message.messageElement.classList.add('planned',);
+                        if (message && message.messageElement) {
+                            message.messageElement.id = body.id;
+                            message.messageElement.classList.add('planned',);
+                        }
                     },);
             } else {
                 throw res;
@@ -42,7 +44,7 @@ const getAllMessages = async () => {
     const articleColumn = Articles.getColumn();
 
     const Button = new CreateButton();
-    Button.setHandlerClick(() => renderDateForm(),);
+    Button.setHandlerClick(() => renderDateForm({}, (params, ) => planTask(params,),),);
     Button.render();
 
     Messages.render();
