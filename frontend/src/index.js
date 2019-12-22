@@ -7,11 +7,6 @@ const Articles = new ArticlesContainer();
 const Messages = new MessagesContainer();
 const Button = new CreateButton();
 
-const getArticles = async () => {
-    const res = await fetch('http://localhost:3000/api/vc/articles',);
-    const articles = await res.json();
-    Articles.render(new Map(articles,),);
-};
 const getAllMessages = async () => {
     const res = await fetch('http://localhost:3000/api/messages/all',);
     const messages = await res.json();
@@ -20,11 +15,12 @@ const getAllMessages = async () => {
     const todoColumn = Messages.createColumn('To do', todoMessages,);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
-    Messages.render([todoColumn, doneColumn,],);
+    const result = await fetch('http://localhost:3000/api/vc/articles',);
+    const articles = await result.json();
+    const articleColumn = await Articles.render(new Map(articles,),);
+    Messages.render([todoColumn, doneColumn, articleColumn.render(),],);
     const button = Button.render();
     document.body.appendChild(button,);
 };
 
 getAllMessages();
-
-getArticles();

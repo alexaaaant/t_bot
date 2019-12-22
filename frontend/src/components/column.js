@@ -1,5 +1,3 @@
-import Message from './message';
-
 class Column {
     constructor(name, messages = [], ) {
         this.name = name;
@@ -9,14 +7,13 @@ class Column {
         const messagesElement = document.createElement('div',);
         const header = document.createElement('h4',);
         messagesElement.className = 'messages__container';
-        header.innerText = name;
+        header.innerText = this.getName();
         messagesElement.appendChild(header,);
         const messagesList = document.createElement('div',);
         messagesList.className = 'messages__list';
         const messages = this.getMessages();
         messages.forEach((message, ) => {
-            const messageComponent = new Message(message.text, message.date, message.status,);
-            messagesList.appendChild(messageComponent.render(),);
+            messagesList.appendChild(message.render(),);
         },);
         messagesElement.appendChild(messagesList,);
 

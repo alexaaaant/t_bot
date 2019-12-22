@@ -1,5 +1,6 @@
 import DateComponent from '../components/date';
 import Message from '../components/message';
+import Column from '../components/column';
 
 class Articles {
     constructor() {
@@ -7,20 +8,23 @@ class Articles {
         this.date = null;
 
     }
-    render(articles, ) {
+    async render(articles, ) {
         const list = document.getElementsByClassName('articles',)[0];
-        articles.forEach(async (article, title, ) => {
-            this.allArticles.set(title, article,);
-            const newEl = await this.createArticleElement(title,);
-            newEl.classList.add('articles__item',);
-            newEl.onclick = (e, ) => this.selectArticle(e, title,);
-            list.appendChild(newEl,);
-        },);
+        const articlesArray = [...articles.entries(),];
+        const messages = [];
+        for (let i = 0; i < articlesArray.length; i++) {
+            this.allArticles.set(articlesArray[i][0], articlesArray[i][1],);
+            const newEl = await this.createArticleElement(articlesArray[i][0],);
+            // newEl.onclick = (e, ) => this.selectArticle(e, title,);
+            // list.appendChild(newEl,);
+            messages.push(newEl,);
+        }
+        return new Column('Articles', messages,);
     }
 
     async createArticleElement(title, ) {
         const text = await this.createText(title,);
-        return new Message(text,).render();
+        return new Message(text,);
     }
 
     selectArticle(e, title, ) {
