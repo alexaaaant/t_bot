@@ -3,13 +3,13 @@ import Message from '../components/message';
 import Column from '../components/column';
 
 class Articles {
-    constructor() {
+    constructor(handler = () => { },) {
         this.allArticles = new Map();
         this.date = null;
-        this.column = new Column('Articles VC',[],);
+        this.column = new Column('Articles VC', [],handler,);
     }
     render(articles, ) {
-        articles.forEach(async (article, title,) => {
+        articles.forEach(async (article, title, ) => {
             this.allArticles.set(title, article,);
             const newEl = await this.createArticleElement(title,);
             // newEl.onclick = (e, ) => this.selectArticle(e, title,);
@@ -33,7 +33,7 @@ class Articles {
         const x = (window.scrollX + coords.left + coords.width) - 5;
         this.date = new DateComponent();
         this.date.render(x, y,);
-        this.date.setSubmitHandler(() => this.planTask(e.target, title,),);
+        // this.date.setSubmitHandler(() => this.planTask(e.target, title,),);
     }
 
     formattingDate(dateWithoutFormatting, ) {

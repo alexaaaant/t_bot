@@ -1,26 +1,19 @@
-import DateComponent from './date';
-
 class CreateButton {
     constructor() {
-        this.button = null;
-        this.container = null;
-    }
-    render() {
-        this.dateComponent = new DateComponent();
-        this.dateComponent.setSubmitHandler(this.something,);
-
         this.button = document.createElement('div',);
         this.button.classList.add('create-button',);
-        this.button.addEventListener('click', () => this.handleClick(),);
-
+        this.container = null;
+        this.handlerClick = null;
+    }
+    render() {
+        this.setHandlerClick(this.handlerClick,);
         document.body.appendChild(this.button,);
     }
-    handleClick() {
-        document.body.appendChild(this.dateComponent.render(0, 0,),);
-        console.log('handleClick',);
-    }
-    something() {
-        console.log('something',);
+    setHandlerClick(handler, ) {
+        if (handler) {
+            this.handlerClick = handler;
+            this.button.addEventListener('click', () => this.handlerClick(),);
+        }
     }
 }
 
