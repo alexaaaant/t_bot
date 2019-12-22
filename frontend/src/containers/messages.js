@@ -16,9 +16,9 @@ class Messages {
     render() {
         document.body.appendChild(this.container,);
     }
-    createColumn(name, messages, ) {
+    createColumn(name, messages, clickHandler = null,) {
         const messageComponents = messages.map((message, ) => new Message(message.text, message.date, message.status,),);
-        const column = new Column(name, messageComponents,);
+        const column = new Column(name, messageComponents,clickHandler,);
         return column.render();
     }
 }

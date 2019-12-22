@@ -1,10 +1,11 @@
 class Column {
-    constructor(name, messages = [], ) {
+    constructor(name, messages = [], clickHandler = null, ) {
         this.name = name;
         this.messages = messages;
         this.column = null;
         this.messagesList = document.createElement('div',);
         this.messagesList.className = 'messages__list';
+        this.clickHandler = clickHandler;
     }
     render() {
         this.column = document.createElement('div',);
@@ -22,6 +23,7 @@ class Column {
         return this.column;
     }
     addMessage(message, ) {
+        message.setClickHandler(this.clickHandler,);
         this.messagesList.appendChild(message.render(),);
     }
     getName() {

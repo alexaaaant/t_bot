@@ -3,6 +3,9 @@ class Message {
         this.text = text;
         this.date = date;
         this.status = status;
+        this.handlerClick = () => { };
+        this.messageElement = document.createElement('div',);
+        this.messageElement.className = 'message';
     }
     getData() {
         return {
@@ -18,22 +21,27 @@ class Message {
         return dateElement;
     }
     render() {
-        const messageElement = document.createElement('div',);
-        messageElement.className = 'message';
-
         if (this.status === '0') {
-            messageElement.classList.add('message_to-do',);
+            this.messageElement.classList.add('message_to-do',);
         } else if (this.status === '1') {
-            messageElement.classList.add('message_done',);
+            this.messageElement.classList.add('message_done',);
         }
 
         const textElement = document.createElement('span',);
         textElement.innerText = this.text;
-        messageElement.appendChild(textElement,);
+        this.messageElement.appendChild(textElement,);
 
-        messageElement.appendChild(this.createDate(this.date,),);
+        this.messageElement.appendChild(this.createDate(this.date,),);
+        this.setClickHandler(this.handler,);
 
-        return messageElement;
+        return this.messageElement;
+    }
+
+    setClickHandler(handler = null, ) {
+        if (handler) {
+            this.handlerClick = handler;
+            this.messageElement.onclick = () => this.handlerClick();
+        }
     }
 
 }
