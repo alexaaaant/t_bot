@@ -6,17 +6,16 @@ class Articles {
     constructor() {
         this.allArticles = new Map();
         this.date = null;
-        this.column = new Column('Articles',);
+        this.column = new Column('Articles VC',);
     }
-    async render(articles, ) {
-        const articlesArray = [...articles.entries(),];
-        for (let i = 0; i < articlesArray.length; i++) {
-            this.allArticles.set(articlesArray[i][0], articlesArray[i][1],);
-            const newEl = await this.createArticleElement(articlesArray[i][0],);
+    render(articles, ) {
+        articles.forEach(async (article, title,) => {
+            this.allArticles.set(title, article,);
+            const newEl = await this.createArticleElement(title,);
             // newEl.onclick = (e, ) => this.selectArticle(e, title,);
             // list.appendChild(newEl,);
             this.column.addMessage(newEl,);
-        }
+        },);
     }
 
     getColumn() {
