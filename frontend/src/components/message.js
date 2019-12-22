@@ -40,7 +40,7 @@ class Message {
     setClickHandler(handler = null, ) {
         if (handler) {
             this.handlerClick = handler;
-            this.messageElement.onclick = () => this.handlerClick();
+            this.messageElement.onclick = () => this.handlerClick(this,);
         }
     }
 

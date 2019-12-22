@@ -6,7 +6,7 @@ class Articles {
     constructor() {
         this.allArticles = new Map();
         this.date = null;
-        this.column = new Column('Articles VC',[], () => console.log('это статья',),);
+        this.column = new Column('Articles VC',[],);
     }
     render(articles, ) {
         articles.forEach(async (article, title,) => {

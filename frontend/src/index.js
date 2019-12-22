@@ -12,7 +12,7 @@ const getAllMessages = async () => {
     const messages = await res.json();
     const todoMessages = messages.filter((message, ) => message.status === '0',);
     const doneMessages = messages.filter((message, ) => message.status === '1',);
-    const todoColumn = Messages.createColumn('To do', todoMessages, () => console.log('а это to do',),);
+    const todoColumn = Messages.createColumn('To do', todoMessages,);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
     const articleColumn = Articles.getColumn();
 
