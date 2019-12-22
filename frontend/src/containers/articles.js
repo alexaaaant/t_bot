@@ -19,7 +19,7 @@ class Articles {
             // list.appendChild(newEl,);
             messages.push(newEl,);
         }
-        return new Column('Articles', messages,);
+        return new Column('Articles', messages,).render();
     }
 
     async createArticleElement(title, ) {
