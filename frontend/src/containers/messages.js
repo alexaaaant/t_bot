@@ -1,7 +1,6 @@
-class Messages {
-    constructor() {
+import Message from '../components/message';
 
-    }
+class Messages {
     render(messages, ) {
         const container = document.createElement('div',);
         container.className = 'messages d-flex';
@@ -10,14 +9,14 @@ class Messages {
         const { messagesList: messagesListDone, messages: doneMessages, } = this.createColumn('Done',);
 
         messages.forEach((message, ) => {
-            const messageElement = this.createMessage(message,);
+            const messageComponent = new Message(message.text, message.date, message.status,);
+            const messageElement = messageComponent.render();
+            const status = messageComponent.getData().status;
 
-            if (message.status === '0') {
-                messageElement.classList.add('message_to-do',);
+            if (status === '0') {
                 messagesListTodo.appendChild(messageElement,);
             }
-            if (message.status === '1') {
-                messageElement.classList.add('message_done',);
+            if (status === '1') {
                 messagesListDone.appendChild(messageElement,);
             }
         },);
@@ -37,24 +36,6 @@ class Messages {
         const messagesList = document.createElement('div',);
         messagesList.className = 'messages__list';
         return { messagesList, messages, };
-    }
-    createMessage(message, ) {
-        const messageElement = document.createElement('div',);
-        messageElement.className = 'message';
-        const textElement = document.createElement('span',);
-        textElement.innerText = message.text;
-        messageElement.appendChild(textElement,);
-
-        const dateElement = this.createDate(message.date,);
-        messageElement.appendChild(dateElement,);
-
-        return messageElement;
-    }
-    createDate(date, ) {
-        const dateElement = document.createElement('span',);
-        dateElement.innerText = date;
-        dateElement.className = 'message__date';
-        return dateElement;
     }
 }
 

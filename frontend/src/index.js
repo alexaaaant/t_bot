@@ -10,7 +10,7 @@ const Button = new CreateButton();
 const getArticles = async () => {
     const res = await fetch('http://localhost:3000/api/vc/articles',);
     const articles = await res.json();
-    // Articles.render(new Map(articles,),);
+    Articles.render(new Map(articles,),);
 };
 const getAllMessages = async () => {
     const res = await fetch('http://localhost:3000/api/messages/all',);
