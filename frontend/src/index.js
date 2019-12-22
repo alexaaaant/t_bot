@@ -4,19 +4,16 @@ import CreateButton from './components/createButton';
 import DateComponent from './components/date';
 import './webSocket';
 
-const planTask = async (article, title, ) => {
+const planTask = async (params, message,) => {
     const chat_id = 9408538;
-    const dateWithoutFormatting = this.date.getDate();
-    const { dateStr, timeStr, } = this.formattingDate(dateWithoutFormatting,);
-
-    const text = await this.createText(title,);
-    fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}`,),)
+    const { date, time, text, } = params;
+    fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${date}&time=${time}&chat_id=${chat_id}`,),)
         .then((res, ) => {
             if (res.ok) {
                 res.json()
                     .then((body, ) => {
-                        article.id = body.id;
-                        article.classList.add('planned',);
+                        message.messageElement.id = body.id;
+                        message.messageElement.classList.add('planned',);
                     },);
             } else {
                 throw res;
@@ -38,10 +35,10 @@ const getAllMessages = async () => {
     const doneMessages = messages.filter((message, ) => message.status === '1',);
 
     const Messages = new MessagesContainer();
-    const todoColumn = Messages.createColumn('To do', todoMessages, (message,) => renderDateForm(message,),);
+    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderDateForm(message, (params, ) => planTask(params, message,),),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
-    const Articles = new ArticlesContainer((message, ) => renderDateForm(message,),);
+    const Articles = new ArticlesContainer((message, ) => renderDateForm(message, (params, ) => planTask(params, message,),),);
     const articleColumn = Articles.getColumn();
 
     const Button = new CreateButton();

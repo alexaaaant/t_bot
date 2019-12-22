@@ -24,6 +24,31 @@ class DateComponent {
         const mins = this.getTwoDigits(date.getMinutes(),);
         return `${hours}:${mins}`;
     }
+
+    formattingDate(dateWithoutFormatting, ) {
+        let day = dateWithoutFormatting.getDate();
+        let month = dateWithoutFormatting.getMonth() + 1;
+        const year = dateWithoutFormatting.getFullYear();
+        let hours = dateWithoutFormatting.getHours();
+        let minunes = dateWithoutFormatting.getMinutes();
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (minunes < 10) {
+            minunes = '0' + minunes;
+        }
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        return {
+            dateStr: `${day}.${month}.${year}`,
+            timeStr: `${hours}:${minunes}`,
+        };
+    }
+
     render() {
         this.form = this.createForm();
         this.isVisible = true;
@@ -36,11 +61,13 @@ class DateComponent {
 
     handleSubmit(e, ) {
         e.preventDefault();
-        const { date, time, } = e.target.elements;
+        const { date, time, text, } = e.target.elements;
         this.unRender();
-        this.date = date;
-        this.time = time;
-        this.submitHandler();
+        this.date = date.value;
+        this.time = time.value;
+        this.text = text.value;
+        const { dateStr, timeStr, } = this.formattingDate(new Date(`${this.date} ${this.time}`,),);
+        this.submitHandler({ date: dateStr, time: timeStr, text: this.text, },);
     }
 
     createForm() {
@@ -68,6 +95,7 @@ class DateComponent {
 
         textArea.className = 'form-date__text';
         textArea.value = this.text;
+        textArea.name = 'text';
 
         submitButton.type = 'submit';
         submitButton.className = 'form-date__button';
@@ -81,8 +109,8 @@ class DateComponent {
     }
 
     getDate() {
-        if (!this.date.value || !this.time.value) return null;
-        return new Date(this.date.value + ' ' + this.time.value,);
+        if (!this.date || !this.time) return null;
+        return new Date(this.date + ' ' + this.time,);
     }
 
     setSubmitHandler(handler, ) {
