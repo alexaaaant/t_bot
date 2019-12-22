@@ -3,10 +3,26 @@ class DateComponent {
         this.form = null;
         this.isVisible = false;
         this.submitHandler = null;
-        this.date = params.date || '';
-        this.time = params.time || '';
+        this.date = this.formatDate(new Date(params.date,),) || '';
+        this.time = this.formatTime(new Date(params.date,),) || '';
         this.text = params.text || '';
         this.formContainer = null;
+    }
+
+    getTwoDigits(value, ) {
+        return value < 10 ? `0${value}` : value;
+    }
+    formatDate(date, ) {
+        const day = this.getTwoDigits(date.getDate(),);
+        const month = this.getTwoDigits(date.getMonth() + 1,);
+        const year = date.getFullYear();
+
+        return `${year}-${day}-${month}`;
+    }
+    formatTime(date, ) {
+        const hours = this.getTwoDigits(date.getHours(),);
+        const mins = this.getTwoDigits(date.getMinutes(),);
+        return `${hours}:${mins}`;
     }
     render() {
         this.form = this.createForm();
