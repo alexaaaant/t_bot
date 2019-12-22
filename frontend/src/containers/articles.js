@@ -60,27 +60,6 @@ class Articles {
         };
     }
 
-    async planTask(article, title, ) {
-        const chat_id = 9408538;
-        const dateWithoutFormatting = this.date.getDate();
-        const { dateStr, timeStr, } = this.formattingDate(dateWithoutFormatting,);
-
-        const text = await this.createText(title,);
-        fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${dateStr}&time=${timeStr}&chat_id=${chat_id}`,),)
-            .then((res, ) => {
-                if (res.ok) {
-                    res.json()
-                        .then((body, ) => {
-                            article.id = body.id;
-                            article.classList.add('planned',);
-                        },);
-                } else {
-                    throw res;
-                }
-            },)
-            .catch((e, ) => console.log('e', e,),);
-    }
-
     static doneTask(id, ) {
         const article = document.getElementById(id,);
         article.classList.remove('planned',);

@@ -1,10 +1,11 @@
 class DateComponent {
-    constructor() {
+    constructor(params = {}, ) {
         this.form = null;
         this.isVisible = false;
         this.submitHandler = null;
-        this.date = null;
-        this.time = null;
+        this.date = params.date || '';
+        this.time = params.time || '';
+        this.text = params.text || '';
         this.formContainer = null;
     }
     render() {
@@ -35,16 +36,22 @@ class DateComponent {
         form.addEventListener('submit', (e, ) => this.handleSubmit(e,),);
 
         form.className = 'form-date d-flex flex-column';
+
         inputDate.className = 'form-date__input';
         inputDate.autofocus = true;
         inputDate.name = 'date';
         inputDate.placeholder = 'Дата';
         inputDate.type = 'date';
+        inputDate.value = this.date;
+
         inputTime.className = 'form-date__input';
         inputTime.name = 'time';
         inputTime.type = 'time';
         inputTime.placeholder = 'Время';
+        inputTime.value = this.time;
+
         textArea.className = 'form-date__text';
+        textArea.value = this.text;
 
         submitButton.type = 'submit';
         submitButton.className = 'form-date__button';
