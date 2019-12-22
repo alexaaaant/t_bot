@@ -15,10 +15,15 @@ const getArticles = async () => {
 const getAllMessages = async () => {
     const res = await fetch('http://localhost:3000/api/messages/all',);
     const messages = await res.json();
-    Messages.render(messages,);
+    const todoMessages = messages.filter((message, ) => message.status === '0',);
+    const doneMessages = messages.filter((message, ) => message.status === '1',);
+    const todoColumn = Messages.createColumn('To do', todoMessages,);
+    const doneColumn = Messages.createColumn('Done', doneMessages,);
+
+    Messages.render([todoColumn, doneColumn,],);
     const button = Button.render();
     document.body.appendChild(button,);
-};  
+};
 
 getAllMessages();
 

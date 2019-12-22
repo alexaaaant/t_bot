@@ -1,15 +1,14 @@
 import Message from '../components/message';
 
 class Messages {
-    render(messages, ) {
+    render(columns, ) {
         const container = document.createElement('div',);
         container.className = 'messages d-flex';
 
-        const { messagesElement: todoMessages, } = this.createColumn('To do', messages.filter((message, ) => message.status === '0',),);
-        const { messagesElement: doneMessages, } = this.createColumn('Done', messages.filter((message, ) => message.status === '1',),);
+        columns.forEach((column, ) => {
+            container.appendChild(column,);
+        },);
 
-        container.appendChild(todoMessages,);
-        container.appendChild(doneMessages,);
         document.body.appendChild(container,);
     }
     createColumn(name, messages, ) {
@@ -26,7 +25,7 @@ class Messages {
         },);
         messagesElement.appendChild(messagesList,);
 
-        return { messagesElement, };
+        return messagesElement;
     }
 }
 
