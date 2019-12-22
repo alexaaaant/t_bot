@@ -1,5 +1,4 @@
-import Message from '../components/message';
-
+import Column from '../components/column';
 class Messages {
     render(columns, ) {
         const container = document.createElement('div',);
@@ -12,20 +11,8 @@ class Messages {
         document.body.appendChild(container,);
     }
     createColumn(name, messages, ) {
-        const messagesElement = document.createElement('div',);
-        const header = document.createElement('h4',);
-        messagesElement.className = 'messages__container';
-        header.innerText = name;
-        messagesElement.appendChild(header,);
-        const messagesList = document.createElement('div',);
-        messagesList.className = 'messages__list';
-        messages.forEach((message, ) => {
-            const messageComponent = new Message(message.text, message.date, message.status,);
-            messagesList.appendChild(messageComponent.render(),);
-        },);
-        messagesElement.appendChild(messagesList,);
-
-        return messagesElement;
+        const column = new Column(name, messages,);
+        return column.render();
     }
 }
 
