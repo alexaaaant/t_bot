@@ -4,6 +4,7 @@ import Message from '../components/message';
 class Messages {
     constructor() {
         this.container = this.createContainer();
+        this.columns = new Map();
     }
     createContainer() {
         const container = document.createElement('div',);
@@ -11,15 +12,17 @@ class Messages {
         return container;
     }
     addColumn(column, ) {
-        this.container.appendChild(column,);
+        this.columns.set(column.getName(), column,);
+        this.container.appendChild(column.render(),);
     }
     render() {
         document.body.appendChild(this.container,);
     }
-    createColumn(name, messages, clickHandler = null,) {
+    createColumn(name, messages, clickHandler = null, ) {
         const messageComponents = messages.map((message, ) => new Message(message.text, message.date, message.status,),);
-        const column = new Column(name, messageComponents,clickHandler,);
-        return column.render();
+        const column = new Column(name, messageComponents, clickHandler,);
+        this.columns.set(name, column,);
+        return column;
     }
 }
 

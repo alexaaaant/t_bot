@@ -19,7 +19,7 @@ class Articles {
     }
 
     getColumn() {
-        return this.column.render();
+        return this.column;
     }
 
     async createArticleElement(title, ) {
