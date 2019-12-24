@@ -24,6 +24,9 @@ class Messages {
         this.columns.set(name, column,);
         return column;
     }
+    getColumn(name,) {
+        return this.columns.get(name,);
+    }
 }
 
 export default Messages;

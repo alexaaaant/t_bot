@@ -23,6 +23,7 @@ class Column {
         return this.column;
     }
     addMessage(message, ) {
+        console.log(message,);
         message.setClickHandler(this.clickHandler,);
         this.messagesList.appendChild(message.render(),);
     }

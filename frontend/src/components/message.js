@@ -21,6 +21,10 @@ class Message {
         return dateElement;
     }
     render() {
+        this.messageElement.remove();
+        this.messageElement = document.createElement('div',);
+        this.messageElement.className = 'message';
+
         if (this.status === '0') {
             this.messageElement.classList.add('message_to-do',);
         } else if (this.status === '1') {
@@ -32,7 +36,7 @@ class Message {
         this.messageElement.appendChild(textElement,);
 
         this.messageElement.appendChild(this.createDate(this.date,),);
-        this.setClickHandler(this.handler,);
+        this.setClickHandler(this.handlerClick,);
 
         return this.messageElement;
     }
@@ -42,6 +46,15 @@ class Message {
             this.handlerClick = handler;
             this.messageElement.onclick = () => this.handlerClick(this,);
         }
+    }
+    setStatus(status, ) {
+        this.status = status;
+    }
+    setDate(date, ) {
+        this.date = date;
+    }
+    setText(text, ) {
+        this.text = text;
     }
 
 }

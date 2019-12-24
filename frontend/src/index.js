@@ -2,7 +2,10 @@ import ArticlesContainer from './containers/articles';
 import MessagesContainer from './containers/messages';
 import CreateButton from './components/createButton';
 import DateComponent from './components/date';
+import Message from './components/message';
 import './webSocket';
+
+const Messages = new MessagesContainer();
 
 const planTask = async (params, message, ) => {
     const chat_id = 9408538;
@@ -12,9 +15,14 @@ const planTask = async (params, message, ) => {
             if (res.ok) {
                 res.json()
                     .then((body, ) => {
+                        const todoColumn = Messages.getColumn('To do',);
                         if (message && message.messageElement) {
-                            message.messageElement.id = body.id;
-                            message.messageElement.classList.add('planned',);
+                            message.setStatus('0',);
+                            message.setDate(`${date} ${time}`,);
+                            message.setText(text,);
+                            todoColumn.addMessage(message,);
+                        } else {
+                            todoColumn.addMessage(new Message(text, `${date} ${time}`, '0',),);
                         }
                     },);
             } else {
@@ -36,7 +44,6 @@ const getAllMessages = async () => {
     const todoMessages = messages.filter((message, ) => message.status === '0',);
     const doneMessages = messages.filter((message, ) => message.status === '1',);
 
-    const Messages = new MessagesContainer();
     const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderDateForm(message, (params, ) => planTask(params, message,),),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
