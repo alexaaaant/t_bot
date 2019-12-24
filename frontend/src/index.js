@@ -9,8 +9,8 @@ const Messages = new MessagesContainer();
 
 const planTask = async (params, message, ) => {
     const chat_id = 9408538;
-    const { date, time, text, } = params;
-    fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${date}&time=${time}&chat_id=${chat_id}`,),)
+    const { date, text, } = params;
+    fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${date}&chat_id=${chat_id}`,),)
         .then((res, ) => {
             if (res.ok) {
                 res.json()
@@ -18,11 +18,11 @@ const planTask = async (params, message, ) => {
                         const todoColumn = Messages.getColumn('To do',);
                         if (message && message.messageElement) {
                             message.setStatus('0',);
-                            message.setDate(`${date} ${time}`,);
+                            message.setDate(new Date(date,).toString(),);
                             message.setText(text,);
                             todoColumn.addMessage(message,);
                         } else {
-                            todoColumn.addMessage(new Message(text, `${date} ${time}`, '0',),);
+                            todoColumn.addMessage(new Message(text, new Date(date,).toString(), '0',),);
                         }
                     },);
             } else {

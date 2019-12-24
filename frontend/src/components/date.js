@@ -3,8 +3,8 @@ class DateComponent {
         this.form = null;
         this.isVisible = false;
         this.submitHandler = null;
-        this.date = this.formatDate(new Date(params.date,),) || '';
-        this.time = this.formatTime(new Date(params.date,),) || '';
+        this.date = this.formatDate(new Date(params.date,),);
+        this.time = this.formatTime(new Date(params.date,),);
         this.text = params.text || '';
         this.formContainer = null;
     }
@@ -17,36 +17,12 @@ class DateComponent {
         const month = this.getTwoDigits(date.getMonth() + 1,);
         const year = date.getFullYear();
 
-        return `${year}-${day}-${month}`;
+        return `${year}-${month}-${day}`;
     }
     formatTime(date, ) {
         const hours = this.getTwoDigits(date.getHours(),);
         const mins = this.getTwoDigits(date.getMinutes(),);
         return `${hours}:${mins}`;
-    }
-
-    formattingDate(dateWithoutFormatting, ) {
-        let day = dateWithoutFormatting.getDate();
-        let month = dateWithoutFormatting.getMonth() + 1;
-        const year = dateWithoutFormatting.getFullYear();
-        let hours = dateWithoutFormatting.getHours();
-        let minunes = dateWithoutFormatting.getMinutes();
-        if (day < 10) {
-            day = '0' + day;
-        }
-        if (month < 10) {
-            month = '0' + month;
-        }
-        if (minunes < 10) {
-            minunes = '0' + minunes;
-        }
-        if (hours < 10) {
-            hours = '0' + hours;
-        }
-        return {
-            dateStr: `${day}.${month}.${year}`,
-            timeStr: `${hours}:${minunes}`,
-        };
     }
 
     render() {
@@ -63,11 +39,9 @@ class DateComponent {
         e.preventDefault();
         const { date, time, text, } = e.target.elements;
         this.unRender();
-        this.date = date.value;
-        this.time = time.value;
+        this.date = new Date(`${date.value} ${time.value}`,);
         this.text = text.value;
-        const { dateStr, timeStr, } = this.formattingDate(new Date(`${this.date} ${this.time}`,),);
-        this.submitHandler({ date: dateStr, time: timeStr, text: this.text, },);
+        this.submitHandler({ date: this.date.toUTCString(), text: this.text, },);
     }
 
     createForm() {

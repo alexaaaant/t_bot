@@ -6,10 +6,36 @@ import webSocket from '../index';
 
 const router = new Router({ prefix: '/task', },);
 
+function formattingDate(dateWithoutFormatting, ) {
+    let day = dateWithoutFormatting.getDate();
+    let month = dateWithoutFormatting.getMonth() + 1;
+    const year = dateWithoutFormatting.getFullYear();
+    let hours = dateWithoutFormatting.getHours();
+    let minunes = dateWithoutFormatting.getMinutes();
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (minunes < 10) {
+        minunes = '0' + minunes;
+    }
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    return {
+        dateStr: `${day}.${month}.${year}`,
+        timeStr: `${hours}:${minunes}`,
+    };
+}
+
 router.get('/plan', async (ctx, ) => {
-    const { chat_id, text, date, time, } = ctx.request.query;
-    const res = await insertMessage(chat_id, text, `${date} ${time}`, 0,);
-    exec(`SCHTASKS /CREATE /SC ONCE /TN TASK${res.id} /TR "powershell Invoke-WebRequest http://localhost:3000/api/bot/sendPlannedMessage?task=${res.id} -UseBasicParsing" /SD ${date} /ST ${time}`,
+    const { chat_id, text, date, } = ctx.request.query;
+    const currentDate = new Date(new Date(date,).toString(),);
+    const { dateStr, timeStr, } = formattingDate(currentDate,);
+    const res = await insertMessage(chat_id, text, `${currentDate}`, 0,);
+    exec(`SCHTASKS /CREATE /SC ONCE /TN TASK${res.id} /TR "powershell Invoke-WebRequest http://localhost:3000/api/bot/sendPlannedMessage?task=${res.id} -UseBasicParsing" /SD ${dateStr} /ST ${timeStr}`,
         (e, stdout, stderr, ) => console.log('errors', e, stdout, stderr,),);
     Object.assign(ctx, { body: JSON.stringify(res,), },);
 },);
