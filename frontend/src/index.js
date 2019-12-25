@@ -3,9 +3,10 @@ import MessagesContainer from './containers/messages';
 import CreateButton from './components/createButton';
 import DateComponent from './components/date';
 import Message from './components/message';
+import Store from './store';
 import './webSocket';
 
-const Messages = new MessagesContainer();
+const store = Store.getInstance();
 
 const planTask = async (params, message, ) => {
     const chat_id = 9408538;
@@ -15,15 +16,17 @@ const planTask = async (params, message, ) => {
             if (res.ok) {
                 res.json()
                     .then((body, ) => {
-                        const todoColumn = Messages.getColumn('To do',);
                         if (message && message.messageElement) {
-                            message.setStatus('0',);
                             message.setDate(new Date(date,).toString(),);
                             message.setText(text,);
-                            todoColumn.addMessage(message,);
+                            store.addMessage(body.id, message,);
+                            store.changeMessageStatus(body.id, '0',);
                         } else {
-                            todoColumn.addMessage(new Message(text, new Date(date,).toString(), '0',),);
+                            const message = new Message(text, new Date(date,).toString(), '0',);
+                            store.addMessage(body.id, message,);
+                            store.changeMessageStatus(body.id, '0',);
                         }
+                        console.log(store,);
                     },);
             } else {
                 throw res;
@@ -44,6 +47,7 @@ const getAllMessages = async () => {
     const todoMessages = messages.filter((message, ) => message.status === '0',);
     const doneMessages = messages.filter((message, ) => message.status === '1',);
 
+    const Messages = new MessagesContainer();
     const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderDateForm(message, (params, ) => planTask(params, message,),),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
@@ -55,6 +59,8 @@ const getAllMessages = async () => {
     Button.render();
 
     Messages.render();
+    store.addColumn('0', todoColumn,);
+    store.addColumn('1', doneColumn,);
     Messages.addColumn(todoColumn,);
     Messages.addColumn(doneColumn,);
     Messages.addColumn(articleColumn,);

@@ -1,9 +1,12 @@
 import io from 'socket.io-client';
+import Store from './store';
+
+const store = Store.getInstance();
+
 const socket = io('http://localhost:3000',);
 
 socket.on('task_done', (msg, ) => {
-    const element = document.getElementById(msg.task_id,);
-    element.classList.add('done',);
+    store.changeMessageStatus(+msg.task_id, '1',);
 },);
 
 export default socket;
