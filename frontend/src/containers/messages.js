@@ -19,7 +19,7 @@ class Messages {
         document.body.appendChild(this.container,);
     }
     createColumn(name, messages, clickHandler = null, ) {
-        const messageComponents = messages.map((message, ) => new Message(message.text, message.date, message.status,),);
+        const messageComponents = messages.map((message, ) => new Message(message.text, message.date, message.status,message.id,),);
         const column = new Column(name, messageComponents, clickHandler,);
         this.columns.set(name, column,);
         return column;

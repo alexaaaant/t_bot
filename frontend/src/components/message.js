@@ -1,11 +1,18 @@
 class Message {
-    constructor(text = '', date = '', status = '', ) {
+    constructor(text = '', date = '', status = '', id = null, ) {
         this.text = text;
         this.date = date;
         this.status = status;
+        this.id = id;
         this.handlerClick = () => { };
         this.messageElement = document.createElement('div',);
         this.messageElement.className = 'message';
+    }
+    setId(id,) {
+        this.id = id;
+    }
+    getId() {
+        return this.id;
     }
     getData() {
         return {
@@ -39,6 +46,10 @@ class Message {
         this.setClickHandler(this.handlerClick,);
 
         return this.messageElement;
+    }
+    delete() {
+        this.messageElement.remove();
+        delete this;
     }
 
     setClickHandler(handler = null, ) {

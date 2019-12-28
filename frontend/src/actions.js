@@ -14,10 +14,11 @@ export const planTask = (params, message, ) => {
                         if (message && message.messageElement) {
                             message.setDate(new Date(date,).toString(),);
                             message.setText(text,);
+                            message.setId(body.id,);
                             store.addMessage(body.id, message,);
                             store.changeMessageStatus(body.id, '0',);
                         } else {
-                            const message = new Message(text, new Date(date,).toString(), '0',);
+                            const message = new Message(text, new Date(date,).toString(), '0', body.id,);
                             store.addMessage(body.id, message,);
                             store.changeMessageStatus(body.id, '0',);
                         }

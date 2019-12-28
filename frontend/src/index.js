@@ -2,13 +2,19 @@ import ArticlesContainer from './containers/articles';
 import MessagesContainer from './containers/messages';
 import CreateButton from './components/createButton';
 import FormComponent from './components/form/form';
+import ChangeForm from './components/form/changeForm';
 import Store from './store';
 import './webSocket';
 
 const store = Store.getInstance();
 
-const renderForm = (message,) => {
+const renderForm = (message, ) => {
     const Form = new FormComponent(message,);
+    document.body.appendChild(Form.render(0, 0,),);
+};
+
+const renderChangeForm = (message,) => {
+    const Form = new ChangeForm(message,);
     document.body.appendChild(Form.render(0, 0,),);
 };
 
@@ -19,7 +25,7 @@ const getAllMessages = async () => {
     const doneMessages = messages.filter((message, ) => message.status === '1',);
 
     const Messages = new MessagesContainer();
-    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderForm(message,),);
+    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderChangeForm(message,),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
     const Articles = new ArticlesContainer((message, ) => renderForm(message,),);

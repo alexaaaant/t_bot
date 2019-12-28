@@ -47,21 +47,24 @@ class FormComponent {
     }
 
     createForm() {
-        const inputDate = this.createInputDate();
-        const inputTime = this.createInputTime();
-        const textArea = this.createTextArea();
-        const submitButton = this.createSubmitButton();
+        const elements = this.createElements();
 
         const form = document.createElement('form',);
 
         form.addEventListener('submit', (e, ) => this.handleSubmit(e,),);
         form.className = 'form-date d-flex flex-column';
-
-        form.appendChild(inputDate,);
-        form.appendChild(inputTime,);
-        form.appendChild(textArea,);
-        form.appendChild(submitButton,);
+        elements.forEach((element, ) => {
+            form.appendChild(element,);
+        },);
         return form;
+    }
+
+    createElements() {
+        const inputDate = this.createInputDate();
+        const inputTime = this.createInputTime();
+        const textArea = this.createTextArea();
+        const submitButton = this.createSubmitButton();
+        return [inputDate, inputTime, textArea, submitButton,];
     }
 
     createInputDate() {

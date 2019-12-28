@@ -12,10 +12,15 @@ export default class Store {
         return this.state.messages.get(id,);
     }
     deleteMessage(id, ) {
+        const message = this.state.messages.get(id,);
+        message.delete();
         this.state.messages.delete(id,);
     }
 
     addColumn(id, column, ) {
+        column.getMessages().forEach((message,) => {
+            this.state.messages.set(message.getId(), message,);
+        },);
         this.state.columns.set(id, column,);
     }
     getColumn(id, ) {
@@ -24,7 +29,7 @@ export default class Store {
     deleteColumn(id, ) {
         this.state.columns.delete(id,);
     }
-    changeMessageStatus(messageId, status,) {
+    changeMessageStatus(messageId, status, ) {
         const message = this.state.messages.get(messageId,);
         message.setStatus(status,);
         const column = this.state.columns.get(status,);
