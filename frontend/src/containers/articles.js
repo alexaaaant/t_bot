@@ -1,4 +1,4 @@
-import DateComponent from '../components/date';
+import DateComponent from '../components/form/date';
 import Message from '../components/message';
 import Column from '../components/column';
 

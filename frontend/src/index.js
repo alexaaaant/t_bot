@@ -1,7 +1,7 @@
 import ArticlesContainer from './containers/articles';
 import MessagesContainer from './containers/messages';
 import CreateButton from './components/createButton';
-import DateComponent from './components/date';
+import DateComponent from './components/form/date';
 import Message from './components/message';
 import Store from './store';
 import './webSocket';
