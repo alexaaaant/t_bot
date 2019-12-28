@@ -15,10 +15,11 @@ export const planTask = (params, message, ) => {
                             message.setDate(new Date(date,).toString(),);
                             message.setText(text,);
                             message.setId(body.id,);
+                            message.setChatId(chat_id,);
                             store.addMessage(body.id, message,);
                             store.changeMessageStatus(body.id, '0',);
                         } else {
-                            const message = new Message(text, new Date(date,).toString(), '0', body.id,);
+                            const message = new Message(text, new Date(date,).toString(), '0', body.id, chat_id,);
                             store.addMessage(body.id, message,);
                             store.changeMessageStatus(body.id, '0',);
                         }
@@ -43,5 +44,27 @@ export const deleteTask = (id, ) => {
         .catch((e, ) => {
             console.log('e', e,);
             Promise.reject(e,);
+        },);
+};
+
+export const changeTask = (messageData, ) => {
+    return fetch(`http://localhost:${process.env.PORT}/api/task/change`, {
+        method: 'POST',
+        body: JSON.stringify(messageData,),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    },)
+        .then((res, ) => {
+            if (res.ok) {
+                const message = store.getMessage(messageData.id,);
+                message.setText(messageData.text,);
+                message.setDate(messageData.date,);
+            } else {
+                throw res;
+            }
+        },)
+        .catch((e, ) => {
+            console.log('e', e,);
         },);
 };

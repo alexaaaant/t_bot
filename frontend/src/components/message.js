@@ -1,14 +1,23 @@
 class Message {
-    constructor(text = '', date = '', status = '', id = null, ) {
+    constructor(text = '', date = '', status = '', id = null, chatId = null, ) {
         this.text = text;
         this.date = date;
         this.status = status;
         this.id = id;
+        this.chatId = chatId;
         this.handlerClick = () => { };
         this.messageElement = document.createElement('div',);
         this.messageElement.className = 'message';
+        this.textElement = null;
+        this.dateElement = null;
     }
-    setId(id,) {
+    setChatId(id, ) {
+        this.chatId = id;
+    }
+    getChatId() {
+        return this.chatId;
+    }
+    setId(id, ) {
         this.id = id;
     }
     getId() {
@@ -22,10 +31,10 @@ class Message {
         };
     }
     createDate(date, ) {
-        const dateElement = document.createElement('span',);
-        dateElement.innerText = date;
-        dateElement.className = 'message__date';
-        return dateElement;
+        this.dateElement = document.createElement('span',);
+        this.dateElement.innerText = date;
+        this.dateElement.className = 'message__date';
+        return this.dateElement;
     }
     render() {
         this.messageElement.remove();
@@ -38,9 +47,10 @@ class Message {
             this.messageElement.classList.add('message_done',);
         }
 
-        const textElement = document.createElement('span',);
-        textElement.innerText = this.text;
-        this.messageElement.appendChild(textElement,);
+        this.textElement = document.createElement('span',);
+        this.textElement.innerText = this.text;
+        this.textElement.className = 'message__text';
+        this.messageElement.appendChild(this.textElement,);
 
         this.messageElement.appendChild(this.createDate(this.date,),);
         this.setClickHandler(this.handlerClick,);
@@ -63,9 +73,15 @@ class Message {
     }
     setDate(date, ) {
         this.date = date;
+        if (this.dateElement) {
+            this.dateElement.innerText = this.date;
+        }
     }
     setText(text, ) {
         this.text = text;
+        if (this.textElement) {
+            this.textElement.innerText = this.text;
+        }
     }
 
 }

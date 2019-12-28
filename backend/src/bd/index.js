@@ -42,12 +42,24 @@ const changeMessageStatus = (taskId, status, ) => {
         },);
 };
 
-const deleteMessage = (id,) => {
+const deleteMessage = (id, ) => {
     return pool.query(`delete from messages where id=${id} returning id`,)
-        .then((res,) => {
+        .then((res, ) => {
             return res.rows[0];
         },)
         .catch((err, ) => {
+            throw err;
+        },);
+};
+
+const changeMessage = (messageData,) => {
+    const { text, date, id, } = messageData;
+    return pool.query(`update messages set text='${text}', date='${date}' where id=${+id}`,)
+        .then((res, ) => {
+            return res.rows[0];
+        },)
+        .catch((err, ) => {
+            console.log(err,);
             throw err;
         },);
 };
@@ -58,4 +70,5 @@ export {
     getMessage,
     changeMessageStatus,
     deleteMessage,
+    changeMessage,
 };

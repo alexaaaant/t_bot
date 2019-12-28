@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import { exec, } from 'child_process';
-import { insertMessage, changeMessageStatus, deleteMessage, } from '../bd/index';
+import { insertMessage, changeMessageStatus, deleteMessage, changeMessage, } from '../bd/index';
 import request from 'request-promise';
 import webSocket from '../index';
 
@@ -35,8 +35,7 @@ router.get('/plan', async (ctx, ) => {
     const currentDate = new Date(new Date(date,).toString(),);
     const { dateStr, timeStr, } = formattingDate(currentDate,);
     const res = await insertMessage(chat_id, text, `${currentDate}`, 0,);
-    exec(`SCHTASKS /CREATE /SC ONCE /TN TASK${res.id} /TR "powershell Invoke-WebRequest http://localhost:3000/api/bot/sendPlannedMessage?task=${res.id} -UseBasicParsing" /SD ${dateStr} /ST ${timeStr}`,
-        (e, stdout, stderr, ) => console.log('errors', e, stdout, stderr,),);
+    addToScheduleTask({ id: res.id, date: dateStr, time: timeStr, },);
     Object.assign(ctx, { body: JSON.stringify(res,), },);
 },);
 
@@ -77,5 +76,22 @@ router.get('/delete', async (ctx, ) => {
     await request(`http://localhost:${process.env.PORT}/api/task/deleteSchtask?task_id=${id}`,);
     Object.assign(ctx, { body: 'Success', },);
 },);
+
+router.post('/change', async (ctx, ) => {
+    const { date, id, } = ctx.request.body;
+    await request(`http://localhost:${process.env.PORT}/api/task/deleteSchtask?task_id=${id}`,);
+
+    const currentDate = new Date(new Date(date,).toString(),);
+    const { dateStr, timeStr, } = formattingDate(currentDate,);
+    addToScheduleTask({ id, date: dateStr, time: timeStr, },);
+
+    await changeMessage(Object.assign(ctx.request.body, { date: `${currentDate}`, },),);
+    Object.assign(ctx, { body: 'Success', },);
+},);
+
+const addToScheduleTask = (params, ) => {
+    exec(`SCHTASKS /CREATE /SC ONCE /TN TASK${params.id} /TR "powershell Invoke-WebRequest http://localhost:3000/api/bot/sendPlannedMessage?task=${params.id} -UseBasicParsing" /SD ${params.date} /ST ${params.time}`,
+        (e, stdout, stderr, ) => console.log('errors', e, stdout, stderr,),);
+};
 
 export default router;

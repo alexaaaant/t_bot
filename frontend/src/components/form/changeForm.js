@@ -1,5 +1,5 @@
 import Form from './form';
-import { deleteTask, } from '../../actions';
+import { deleteTask, changeTask, } from '../../actions';
 
 class ChangeForm extends Form {
     constructor(params = {}, ) {
@@ -30,8 +30,12 @@ class ChangeForm extends Form {
         this.unRender();
         this.date = new Date(`${date.value} ${time.value}`,);
         this.text = text.value;
-        console.log('some function',);
-        // planTask({ date: this.date.toUTCString(), text: this.text, }, this.message,);
+        changeTask({
+            text: this.text,
+            date: this.date.toUTCString(),
+            id: this.message.getId(),
+            chatId: this.message.getChatId(),
+        },);
     }
     createElements() {
         const elements = super.createElements();

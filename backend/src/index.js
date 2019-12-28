@@ -4,11 +4,14 @@ import routers from './routers/routers';
 import dotenv from 'dotenv';
 import io from 'socket.io';
 import http from 'http';
+import koaBody from 'koa-body';
+
 dotenv.config();
 
 const app = new Koa();
 
 app
+    .use(koaBody(),)
     .use(async (ctx, next, ) => {
         await next();
         const rt = ctx.response.get('X-Response-Time',);
