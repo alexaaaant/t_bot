@@ -1,7 +1,7 @@
 import ArticlesContainer from './containers/articles';
 import MessagesContainer from './containers/messages';
 import CreateButton from './components/createButton';
-import DateComponent from './components/form/date';
+import FormComponent from './components/form/form';
 import Message from './components/message';
 import Store from './store';
 import './webSocket';
@@ -35,10 +35,10 @@ const planTask = async (params, message, ) => {
         .catch((e, ) => console.log('e', e,),);
 };
 
-const renderDateForm = (message, handler = () => { }, ) => {
-    const DateForm = new DateComponent(message,);
-    DateForm.setSubmitHandler(handler,);
-    document.body.appendChild(DateForm.render(0, 0,),);
+const renderForm = (message, handler = () => { }, ) => {
+    const Form = new FormComponent(message,);
+    Form.setSubmitHandler(handler,);
+    document.body.appendChild(Form.render(0, 0,),);
 };
 
 const getAllMessages = async () => {
@@ -48,14 +48,14 @@ const getAllMessages = async () => {
     const doneMessages = messages.filter((message, ) => message.status === '1',);
 
     const Messages = new MessagesContainer();
-    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderDateForm(message, (params, ) => planTask(params, message,),),);
+    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderForm(message, (params, ) => planTask(params, message,),),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
-    const Articles = new ArticlesContainer((message, ) => renderDateForm(message, (params, ) => planTask(params, message,),),);
+    const Articles = new ArticlesContainer((message, ) => renderForm(message, (params, ) => planTask(params, message,),),);
     const articleColumn = Articles.getColumn();
 
     const Button = new CreateButton();
-    Button.setHandlerClick(() => renderDateForm({}, (params, ) => planTask(params,),),);
+    Button.setHandlerClick(() => renderForm({}, (params, ) => planTask(params,),),);
     Button.render();
 
     Messages.render();

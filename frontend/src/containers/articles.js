@@ -1,4 +1,4 @@
-import DateComponent from '../components/form/date';
+import FormComponent from '../components/form/form';
 import Message from '../components/message';
 import Column from '../components/column';
 
@@ -31,8 +31,8 @@ class Articles {
         const coords = e.currentTarget.getBoundingClientRect();
         const y = (window.scrollY + coords.top + coords.height) - 5;
         const x = (window.scrollX + coords.left + coords.width) - 5;
-        this.date = new DateComponent();
-        this.date.render(x, y,);
+        this.form = new FormComponent();
+        this.form.render(x, y,);
         // this.date.setSubmitHandler(() => this.planTask(e.target, title,),);
     }
 

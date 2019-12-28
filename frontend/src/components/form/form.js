@@ -1,4 +1,4 @@
-class DateComponent {
+class FormComponent {
     constructor(params = {}, ) {
         this.form = null;
         this.isVisible = false;
@@ -111,4 +111,4 @@ class DateComponent {
     }
 }
 
-export default DateComponent;
+export default FormComponent;
