@@ -1,8 +1,12 @@
+import Message from '../message';
+import Store from '../../store';
+
+const store = Store.getInstance();
 class FormComponent {
     constructor(params = {}, ) {
+        this.message = params;
         this.form = null;
         this.isVisible = false;
-        this.submitHandler = null;
         this.date = this.formatDate(new Date(params.date,),);
         this.time = this.formatTime(new Date(params.date,),);
         this.text = params.text || '';
@@ -41,7 +45,7 @@ class FormComponent {
         this.unRender();
         this.date = new Date(`${date.value} ${time.value}`,);
         this.text = text.value;
-        this.submitHandler({ date: this.date.toUTCString(), text: this.text, },);
+        this.planTask({ date: this.date.toUTCString(), text: this.text, },);
     }
 
     createForm() {
@@ -87,10 +91,6 @@ class FormComponent {
         return new Date(this.date + ' ' + this.time,);
     }
 
-    setSubmitHandler(handler, ) {
-        this.submitHandler = handler;
-    }
-
     unRender() {
         this.isVisible = false;
         this.formContainer.remove();
@@ -108,6 +108,32 @@ class FormComponent {
 
     removeClickListener() {
         document.removeEventListener('click', (e, ) => this.outsideClickListener(e,),);
+    }
+
+    async planTask(params,) {
+        const chat_id = 9408538;
+        const { date, text, } = params;
+        fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${date}&chat_id=${chat_id}`,),)
+            .then((res, ) => {
+                if (res.ok) {
+                    res.json()
+                        .then((body, ) => {
+                            if (this.message && this.message.messageElement) {
+                                this.message.setDate(new Date(date,).toString(),);
+                                this.message.setText(text,);
+                                store.addMessage(body.id, this.message,);
+                                store.changeMessageStatus(body.id, '0',);
+                            } else {
+                                const message = new Message(text, new Date(date,).toString(), '0',);
+                                store.addMessage(body.id, message,);
+                                store.changeMessageStatus(body.id, '0',);
+                            }
+                        },);
+                } else {
+                    throw res;
+                }
+            },)
+            .catch((e, ) => console.log('e', e,),);
     }
 }
 

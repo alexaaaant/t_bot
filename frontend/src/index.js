@@ -2,42 +2,13 @@ import ArticlesContainer from './containers/articles';
 import MessagesContainer from './containers/messages';
 import CreateButton from './components/createButton';
 import FormComponent from './components/form/form';
-import Message from './components/message';
 import Store from './store';
 import './webSocket';
 
 const store = Store.getInstance();
 
-const planTask = async (params, message, ) => {
-    const chat_id = 9408538;
-    const { date, text, } = params;
-    fetch(encodeURI(`http://localhost:${process.env.PORT}/api/task/plan?text=${text}&date=${date}&chat_id=${chat_id}`,),)
-        .then((res, ) => {
-            if (res.ok) {
-                res.json()
-                    .then((body, ) => {
-                        if (message && message.messageElement) {
-                            message.setDate(new Date(date,).toString(),);
-                            message.setText(text,);
-                            store.addMessage(body.id, message,);
-                            store.changeMessageStatus(body.id, '0',);
-                        } else {
-                            const message = new Message(text, new Date(date,).toString(), '0',);
-                            store.addMessage(body.id, message,);
-                            store.changeMessageStatus(body.id, '0',);
-                        }
-                        console.log(store,);
-                    },);
-            } else {
-                throw res;
-            }
-        },)
-        .catch((e, ) => console.log('e', e,),);
-};
-
-const renderForm = (message, handler = () => { }, ) => {
+const renderForm = (message,) => {
     const Form = new FormComponent(message,);
-    Form.setSubmitHandler(handler,);
     document.body.appendChild(Form.render(0, 0,),);
 };
 
@@ -48,14 +19,14 @@ const getAllMessages = async () => {
     const doneMessages = messages.filter((message, ) => message.status === '1',);
 
     const Messages = new MessagesContainer();
-    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderForm(message, (params, ) => planTask(params, message,),),);
+    const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderForm(message,),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
-    const Articles = new ArticlesContainer((message, ) => renderForm(message, (params, ) => planTask(params, message,),),);
+    const Articles = new ArticlesContainer((message, ) => renderForm(message,),);
     const articleColumn = Articles.getColumn();
 
     const Button = new CreateButton();
-    Button.setHandlerClick(() => renderForm({}, (params, ) => planTask(params,),),);
+    Button.setHandlerClick(() => renderForm({},),);
     Button.render();
 
     Messages.render();
