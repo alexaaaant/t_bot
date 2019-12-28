@@ -42,9 +42,20 @@ const changeMessageStatus = (taskId, status, ) => {
         },);
 };
 
+const deleteMessage = (id,) => {
+    return pool.query(`delete from messages where id=${id} returning id`,)
+        .then((res,) => {
+            return res.rows[0];
+        },)
+        .catch((err, ) => {
+            throw err;
+        },);
+};
+
 export {
     getAllMessages,
     insertMessage,
     getMessage,
     changeMessageStatus,
+    deleteMessage,
 };
