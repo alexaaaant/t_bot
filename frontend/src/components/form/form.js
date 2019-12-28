@@ -47,14 +47,25 @@ class FormComponent {
     }
 
     createForm() {
-        const form = document.createElement('form',);
-        const inputDate = document.createElement('input',);
-        const inputTime = document.createElement('input',);
-        const textArea = document.createElement('textarea',);
-        const submitButton = document.createElement('button',);
-        form.addEventListener('submit', (e, ) => this.handleSubmit(e,),);
+        const inputDate = this.createInputDate();
+        const inputTime = this.createInputTime();
+        const textArea = this.createTextArea();
+        const submitButton = this.createSubmitButton();
 
+        const form = document.createElement('form',);
+
+        form.addEventListener('submit', (e, ) => this.handleSubmit(e,),);
         form.className = 'form-date d-flex flex-column';
+
+        form.appendChild(inputDate,);
+        form.appendChild(inputTime,);
+        form.appendChild(textArea,);
+        form.appendChild(submitButton,);
+        return form;
+    }
+
+    createInputDate() {
+        const inputDate = document.createElement('input',);
 
         inputDate.className = 'form-date__input';
         inputDate.autofocus = true;
@@ -62,26 +73,34 @@ class FormComponent {
         inputDate.placeholder = 'Дата';
         inputDate.type = 'date';
         inputDate.value = this.date;
+        return inputDate;
+    }
+    createInputTime() {
+        const inputTime = document.createElement('input',);
 
         inputTime.className = 'form-date__input';
         inputTime.name = 'time';
         inputTime.type = 'time';
         inputTime.placeholder = 'Время';
         inputTime.value = this.time;
+        return inputTime;
+    }
+
+    createTextArea() {
+        const textArea = document.createElement('textarea',);
 
         textArea.className = 'form-date__text';
         textArea.value = this.text;
         textArea.name = 'text';
+        return textArea;
+    }
+    createSubmitButton() {
+        const submitButton = document.createElement('button',);
 
         submitButton.type = 'submit';
         submitButton.className = 'form-date__button';
         submitButton.textContent = 'Запланировать';
-
-        form.appendChild(inputDate,);
-        form.appendChild(inputTime,);
-        form.appendChild(textArea,);
-        form.appendChild(submitButton,);
-        return form;
+        return submitButton;
     }
 
     getDate() {
