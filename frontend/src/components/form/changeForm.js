@@ -1,4 +1,5 @@
 import Form from './form';
+import { deleteTask, } from '../../actions';
 
 class ChangeForm extends Form {
     constructor(params = {}, ) {
@@ -19,6 +20,7 @@ class ChangeForm extends Form {
         deleteButton.type = 'button';
         deleteButton.className = 'form-date__button';
         deleteButton.textContent = 'Удалить';
+        deleteButton.addEventListener('click', () => this.deleteTask(this.message.getId(),),);
         return deleteButton;
     }
 
@@ -35,6 +37,15 @@ class ChangeForm extends Form {
         const elements = super.createElements();
         elements.push(this.createDeleteButton(),);
         return elements;
+    }
+    deleteTask(id, ) {
+        deleteTask(id,)
+            .then(() => {
+                this.unRender();
+            },)
+            .catch((err, ) => {
+                console.log('err', err,);
+            },);
     }
 }
 

@@ -29,3 +29,19 @@ export const planTask = (params, message, ) => {
         },)
         .catch((e, ) => console.log('e', e,),);
 };
+
+export const deleteTask = (id, ) => {
+    return fetch(`http://localhost:${process.env.PORT}/api/task/delete?id=${id}`,)
+        .then((res, ) => {
+            if (res.ok) {
+                store.deleteMessage(id,);
+                Promise.resolve('',);
+            } else {
+                throw res;
+            }
+        },)
+        .catch((e, ) => {
+            console.log('e', e,);
+            Promise.reject(e,);
+        },);
+};
