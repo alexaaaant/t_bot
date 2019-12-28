@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import { exec, } from 'child_process';
-import { insertMessage, changeMessageStatus, } from '../bd/index';
+import { insertMessage, changeMessageStatus, deleteMessage, } from '../bd/index';
 import request from 'request-promise';
 import webSocket from '../index';
 
@@ -43,12 +43,12 @@ router.get('/plan', async (ctx, ) => {
 router.get('/done', async (ctx, ) => {
     const { task_id, } = ctx.request.query;
     await changeMessageStatus(task_id, 1,);
-    await request(`http://localhost:${process.env.PORT}/api/task/delete?task_id=${task_id}`,);
+    await request(`http://localhost:${process.env.PORT}/api/task/deleteSchtask?task_id=${task_id}`,);
     webSocket.sockets.emit('task_done', { task_id, },);
     Object.assign(ctx, { body: 'Success', },);
 },);
 
-router.get('/delete', async (ctx, ) => {
+router.get('/deleteSchtask', async (ctx, ) => {
     exec(`schtasks /delete /tn "TASK${ctx.request.query.task_id}" /f`,
         (e, stdout, stderr, ) => {
             if (e) {
@@ -70,4 +70,12 @@ router.get('/shortLink', async (ctx, ) => {
     },);
     Object.assign(ctx, { body: JSON.stringify({ url: res, },), },);
 },);
+
+router.get('/delete', async (ctx, ) => {
+    const { id, } = ctx.request.query;
+    await deleteMessage(id,);
+    await request(`http://localhost:${process.env.PORT}/api/task/deleteSchtask?task_id=${id}`,);
+    Object.assign(ctx, { body: 'Success', },);
+},);
+
 export default router;
