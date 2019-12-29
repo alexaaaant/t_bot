@@ -36,8 +36,9 @@ const getAllMessages = async () => {
     const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderChangeForm(message,),);
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
-    const Articles = new ArticlesContainer((message, ) => renderForm(message,),);
-    const articleColumn = Articles.getColumn();
+    const Articles = new ArticlesContainer();
+    const articleColumn = Articles.createColumn('VC', (message, ) => renderForm(message,),);
+    const articleColumnKnife = Articles.createColumn('Knife', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -49,13 +50,17 @@ const getAllMessages = async () => {
     Messages.addColumn(todoColumn,);
     Messages.addColumn(doneColumn,);
     Messages.addColumn(articleColumn,);
+    Messages.addColumn(articleColumnKnife,);
 
     themesVC.forEach(async (theme, ) => {
         const result = await fetch(`http://localhost:3000/api/vc/articles?theme=${theme}`,);
         const articles = await result.json();
-        Articles.render(new Map(articles,),);
+        Articles.render(new Map(articles,), 'VC',);
     },);
 
+    const result = await fetch('http://localhost:3000/api/knife/articles',);
+    const articles = await result.json();
+    Articles.render(new Map(articles,), 'Knife',);
 
 };
 
