@@ -6,6 +6,14 @@ import ChangeForm from './components/form/changeForm';
 import Store from './store';
 import './webSocket';
 
+export const themesVC = [
+    'city',
+    'people',
+    'business',
+    'weekend',
+    'children',
+];
+
 const store = Store.getInstance();
 
 const renderForm = (message, ) => {
@@ -13,7 +21,7 @@ const renderForm = (message, ) => {
     document.body.appendChild(Form.render(0, 0,),);
 };
 
-const renderChangeForm = (message,) => {
+const renderChangeForm = (message, ) => {
     const Form = new ChangeForm(message,);
     document.body.appendChild(Form.render(0, 0,),);
 };
@@ -42,9 +50,12 @@ const getAllMessages = async () => {
     Messages.addColumn(doneColumn,);
     Messages.addColumn(articleColumn,);
 
-    const result = await fetch('http://localhost:3000/api/vc/articles',);
-    const articles = await result.json();
-    Articles.render(new Map(articles,),);
+    themesVC.forEach(async (theme, ) => {
+        const result = await fetch(`http://localhost:3000/api/vc/articles?theme=${theme}`,);
+        const articles = await result.json();
+        Articles.render(new Map(articles,),);
+    },);
+
 
 };
 

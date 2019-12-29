@@ -2,10 +2,10 @@ import Message from '../components/message';
 import Column from '../components/column';
 
 class Articles {
-    constructor(handler = () => { },) {
+    constructor(handler = () => { }, ) {
         this.allArticles = new Map();
         this.date = null;
-        this.column = new Column('Articles VC', [],handler,);
+        this.column = new Column('Articles VC', [], handler,);
     }
     render(articles, ) {
         articles.forEach(async (article, title, ) => {

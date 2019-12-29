@@ -23,6 +23,10 @@
             "always"
         ],
         "no-unused-vars": "warn",
-        "comma-dangle": ["warn", "always"]
+        "comma-dangle": [
+            "warn",
+            "always"
+        ],
+        "require-atomic-updates": "off"
     }
 }

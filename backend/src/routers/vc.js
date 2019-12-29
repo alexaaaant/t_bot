@@ -8,7 +8,8 @@ const router = new Router({ prefix: '/vc', },);
 
 router
     .get('/articles', async (ctx, ) => {
-        const res = await request(`${url}/village/city`,);
+        const { theme, } = ctx.request.query;
+        const res = await request(`${url}/village/${theme}`,);
         const dom = new jsdom.JSDOM(res,);
         let articles = dom.window.document.getElementsByClassName('post-block-featured',);
         articles = [...articles,].slice(0, 10,);
