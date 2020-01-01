@@ -4,7 +4,7 @@ import jsdom from 'jsdom';
 
 const url = 'https://www.the-village.ru';
 
-const router = new Router({ prefix: '/vc', },);
+const router = new Router({ prefix: '/village', },);
 
 router
     .get('/articles', async (ctx, ) => {

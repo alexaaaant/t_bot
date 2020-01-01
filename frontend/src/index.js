@@ -6,7 +6,7 @@ import ChangeForm from './components/form/changeForm';
 import Store from './store';
 import './webSocket';
 
-export const themesVC = [
+export const themesVillage = [
     'city',
     'people',
     'business',
@@ -39,6 +39,7 @@ const getAllMessages = async () => {
     const Articles = new ArticlesContainer();
     const articleColumn = Articles.createColumn('Village', (message, ) => renderForm(message,),);
     const articleColumnKnife = Articles.createColumn('Knife', (message, ) => renderForm(message,),);
+    const articleColumnVC = Articles.createColumn('VC', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -51,17 +52,31 @@ const getAllMessages = async () => {
     Messages.addColumn(doneColumn,);
     Messages.addColumn(articleColumn,);
     Messages.addColumn(articleColumnKnife,);
+    Messages.addColumn(articleColumnVC,);
 
-    themesVC.forEach(async (theme, ) => {
-        const result = await fetch(`http://localhost:3000/api/vc/articles?theme=${theme}`,);
+    loadVillage(Articles,);
+    loadKnife(Articles,);
+    loadVC(Articles,);
+};
+
+const loadVillage = (articlesContainer, ) => {
+    themesVillage.forEach(async (theme, ) => {
+        const result = await fetch(`http://localhost:3000/api/village/articles?theme=${theme}`,);
         const articles = await result.json();
-        Articles.render(new Map(articles,), 'Village',);
+        articlesContainer.render(new Map(articles,), 'Village',);
     },);
+};
 
+const loadKnife = async (articlesContainer, ) => {
     const result = await fetch('http://localhost:3000/api/knife/articles',);
     const articles = await result.json();
-    Articles.render(new Map(articles,), 'Knife',);
+    articlesContainer.render(new Map(articles,), 'Knife',);
+};
 
+const loadVC = async (articlesContainer, ) => {
+    const result = await fetch('http://localhost:3000/api/vc/articles',);
+    const articles = await result.json();
+    articlesContainer.render(new Map(articles,), 'VC',);
 };
 
 getAllMessages();
