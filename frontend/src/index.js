@@ -37,7 +37,7 @@ const getAllMessages = async () => {
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
     const Articles = new ArticlesContainer();
-    const articleColumn = Articles.createColumn('VC', (message, ) => renderForm(message,),);
+    const articleColumn = Articles.createColumn('Village', (message, ) => renderForm(message,),);
     const articleColumnKnife = Articles.createColumn('Knife', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
@@ -55,7 +55,7 @@ const getAllMessages = async () => {
     themesVC.forEach(async (theme, ) => {
         const result = await fetch(`http://localhost:3000/api/vc/articles?theme=${theme}`,);
         const articles = await result.json();
-        Articles.render(new Map(articles,), 'VC',);
+        Articles.render(new Map(articles,), 'Village',);
     },);
 
     const result = await fetch('http://localhost:3000/api/knife/articles',);
