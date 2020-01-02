@@ -53,6 +53,7 @@ const getAllMessages = async () => {
     const articleColumnKnife = Articles.createColumn('Knife', (message, ) => renderForm(message,),);
     const articleColumnVC = Articles.createColumn('VC', (message, ) => renderForm(message,),);
     const articleColumnSnob = Articles.createColumn('Snob', (message, ) => renderForm(message,),);
+    const articleColumnNakedScience = Articles.createColumn('NakedScience', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -67,11 +68,13 @@ const getAllMessages = async () => {
     Messages.addColumn(articleColumnKnife,);
     Messages.addColumn(articleColumnVC,);
     Messages.addColumn(articleColumnSnob,);
+    Messages.addColumn(articleColumnNakedScience,);
 
     loadVillage(Articles,);
     loadKnife(Articles,);
     loadVC(Articles,);
     loadSnob(Articles,);
+    loadNakedScience(Articles,);
 };
 
 const loadVillage = (articlesContainer, ) => {
@@ -102,4 +105,9 @@ const loadVC = async (articlesContainer, ) => {
     articlesContainer.render(new Map(articles,), 'VC',);
 };
 
+const loadNakedScience = async (articlesContainer, ) => {
+    const result = await fetch('http://localhost:3000/api/nakedScience/articles',);
+    const articles = await result.json();
+    articlesContainer.render(new Map(articles,), 'NakedScience',);
+};
 getAllMessages();

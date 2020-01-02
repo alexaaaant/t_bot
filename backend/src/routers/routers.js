@@ -6,6 +6,7 @@ import messagesRouter from './messages';
 import knifeRouter from './knife';
 import vcRouter from './vc';
 import snobRouter from './snob';
+import nakedScienceRouter from './nakedScience';
 
 const apiRouter = new Router({ prefix: '/api', },);
 
@@ -16,5 +17,6 @@ apiRouter.use(messagesRouter.routes(), messagesRouter.allowedMethods(),);
 apiRouter.use(knifeRouter.routes(), knifeRouter.allowedMethods(),);
 apiRouter.use(vcRouter.routes(), vcRouter.allowedMethods(),);
 apiRouter.use(snobRouter.routes(), snobRouter.allowedMethods(),);
+apiRouter.use(nakedScienceRouter.routes(), nakedScienceRouter.allowedMethods(),);
 
 export default apiRouter;
