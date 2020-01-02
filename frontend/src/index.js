@@ -57,6 +57,7 @@ const getAllMessages = async () => {
     const articleColumnNewtonew = Articles.createColumn('Newtonew', (message, ) => renderForm(message,),);
     const articleColumnVice = Articles.createColumn('Vice', (message, ) => renderForm(message,),);
     const articleColumnNplus = Articles.createColumn('Nplus', (message, ) => renderForm(message,),);
+    const articleColumnForbes = Articles.createColumn('Forbes', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -75,6 +76,7 @@ const getAllMessages = async () => {
     Messages.addColumn(articleColumnNewtonew,);
     Messages.addColumn(articleColumnVice,);
     Messages.addColumn(articleColumnNplus,);
+    Messages.addColumn(articleColumnForbes,);
 
     loadVillage(Articles,);
     loadKnife(Articles,);
@@ -84,6 +86,7 @@ const getAllMessages = async () => {
     loadNewtonew(Articles,);
     loadVice(Articles,);
     loadNplus(Articles,);
+    loadForbes(Articles,);
 };
 
 const loadVillage = (articlesContainer, ) => {
@@ -138,5 +141,10 @@ const loadNplus = async (articlesContainer, ) => {
     articlesContainer.render(new Map(articles,), 'Nplus',);
 };
 
+const loadForbes = async (articlesContainer, ) => {
+    const result = await fetch('http://localhost:3000/api/forbes/articles',);
+    const articles = await result.json();
+    articlesContainer.render(new Map(articles,), 'Forbes',);
+};
 
 getAllMessages();

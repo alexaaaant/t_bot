@@ -10,6 +10,7 @@ import nakedScienceRouter from './nakedScience';
 import newtonewRouter from './newtonew';
 import viceRouter from './vice';
 import nplus from './nplus';
+import forbes from './forbes';
 
 const apiRouter = new Router({ prefix: '/api', },);
 
@@ -24,5 +25,6 @@ apiRouter.use(nakedScienceRouter.routes(), nakedScienceRouter.allowedMethods(),)
 apiRouter.use(newtonewRouter.routes(), newtonewRouter.allowedMethods(),);
 apiRouter.use(viceRouter.routes(), viceRouter.allowedMethods(),);
 apiRouter.use(nplus.routes(), nplus.allowedMethods(),);
+apiRouter.use(forbes.routes(), forbes.allowedMethods(),);
 
 export default apiRouter;
