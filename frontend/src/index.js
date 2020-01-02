@@ -55,6 +55,7 @@ const getAllMessages = async () => {
     const articleColumnSnob = Articles.createColumn('Snob', (message, ) => renderForm(message,),);
     const articleColumnNakedScience = Articles.createColumn('NakedScience', (message, ) => renderForm(message,),);
     const articleColumnNewtonew = Articles.createColumn('Newtonew', (message, ) => renderForm(message,),);
+    const articleColumnVice = Articles.createColumn('Vice', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -71,6 +72,7 @@ const getAllMessages = async () => {
     Messages.addColumn(articleColumnSnob,);
     Messages.addColumn(articleColumnNakedScience,);
     Messages.addColumn(articleColumnNewtonew,);
+    Messages.addColumn(articleColumnVice,);
 
     loadVillage(Articles,);
     loadKnife(Articles,);
@@ -78,6 +80,7 @@ const getAllMessages = async () => {
     loadSnob(Articles,);
     loadNakedScience(Articles,);
     loadNewtonew(Articles,);
+    loadVice(Articles,);
 };
 
 const loadVillage = (articlesContainer, ) => {
@@ -120,5 +123,10 @@ const loadNewtonew = async (articlesContainer, ) => {
     articlesContainer.render(new Map(articles,), 'Newtonew',);
 };
 
+const loadVice = async (articlesContainer, ) => {
+    const result = await fetch('http://localhost:3000/api/vice/articles',);
+    const articles = await result.json();
+    articlesContainer.render(new Map(articles,), 'Vice',);
+};
 
 getAllMessages();
