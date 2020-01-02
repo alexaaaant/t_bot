@@ -9,6 +9,7 @@ import snobRouter from './snob';
 import nakedScienceRouter from './nakedScience';
 import newtonewRouter from './newtonew';
 import viceRouter from './vice';
+import nplus from './nplus';
 
 const apiRouter = new Router({ prefix: '/api', },);
 
@@ -22,5 +23,6 @@ apiRouter.use(snobRouter.routes(), snobRouter.allowedMethods(),);
 apiRouter.use(nakedScienceRouter.routes(), nakedScienceRouter.allowedMethods(),);
 apiRouter.use(newtonewRouter.routes(), newtonewRouter.allowedMethods(),);
 apiRouter.use(viceRouter.routes(), viceRouter.allowedMethods(),);
+apiRouter.use(nplus.routes(), nplus.allowedMethods(),);
 
 export default apiRouter;

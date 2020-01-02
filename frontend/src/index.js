@@ -56,6 +56,7 @@ const getAllMessages = async () => {
     const articleColumnNakedScience = Articles.createColumn('NakedScience', (message, ) => renderForm(message,),);
     const articleColumnNewtonew = Articles.createColumn('Newtonew', (message, ) => renderForm(message,),);
     const articleColumnVice = Articles.createColumn('Vice', (message, ) => renderForm(message,),);
+    const articleColumnNplus = Articles.createColumn('Nplus', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -73,6 +74,7 @@ const getAllMessages = async () => {
     Messages.addColumn(articleColumnNakedScience,);
     Messages.addColumn(articleColumnNewtonew,);
     Messages.addColumn(articleColumnVice,);
+    Messages.addColumn(articleColumnNplus,);
 
     loadVillage(Articles,);
     loadKnife(Articles,);
@@ -81,6 +83,7 @@ const getAllMessages = async () => {
     loadNakedScience(Articles,);
     loadNewtonew(Articles,);
     loadVice(Articles,);
+    loadNplus(Articles,);
 };
 
 const loadVillage = (articlesContainer, ) => {
@@ -128,5 +131,12 @@ const loadVice = async (articlesContainer, ) => {
     const articles = await result.json();
     articlesContainer.render(new Map(articles,), 'Vice',);
 };
+
+const loadNplus = async (articlesContainer, ) => {
+    const result = await fetch('http://localhost:3000/api/nplus/articles',);
+    const articles = await result.json();
+    articlesContainer.render(new Map(articles,), 'Nplus',);
+};
+
 
 getAllMessages();
