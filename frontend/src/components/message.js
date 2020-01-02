@@ -40,13 +40,7 @@ class Message {
         this.messageElement.remove();
         this.messageElement = document.createElement('div',);
         this.messageElement.className = 'message';
-
-        if (this.status === '0') {
-            this.messageElement.classList.add('message_to-do',);
-        } else if (this.status === '1') {
-            this.messageElement.classList.add('message_done',);
-        }
-
+        
         this.textElement = document.createElement('span',);
         this.textElement.innerText = this.text;
         this.textElement.className = 'message__text';
