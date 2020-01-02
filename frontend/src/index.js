@@ -54,6 +54,7 @@ const getAllMessages = async () => {
     const articleColumnVC = Articles.createColumn('VC', (message, ) => renderForm(message,),);
     const articleColumnSnob = Articles.createColumn('Snob', (message, ) => renderForm(message,),);
     const articleColumnNakedScience = Articles.createColumn('NakedScience', (message, ) => renderForm(message,),);
+    const articleColumnNewtonew = Articles.createColumn('Newtonew', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -69,12 +70,14 @@ const getAllMessages = async () => {
     Messages.addColumn(articleColumnVC,);
     Messages.addColumn(articleColumnSnob,);
     Messages.addColumn(articleColumnNakedScience,);
+    Messages.addColumn(articleColumnNewtonew,);
 
     loadVillage(Articles,);
     loadKnife(Articles,);
     loadVC(Articles,);
     loadSnob(Articles,);
     loadNakedScience(Articles,);
+    loadNewtonew(Articles,);
 };
 
 const loadVillage = (articlesContainer, ) => {
@@ -110,4 +113,12 @@ const loadNakedScience = async (articlesContainer, ) => {
     const articles = await result.json();
     articlesContainer.render(new Map(articles,), 'NakedScience',);
 };
+
+const loadNewtonew = async (articlesContainer, ) => {
+    const result = await fetch('http://localhost:3000/api/newtonew/articles',);
+    const articles = await result.json();
+    articlesContainer.render(new Map(articles,), 'Newtonew',);
+};
+
+
 getAllMessages();
