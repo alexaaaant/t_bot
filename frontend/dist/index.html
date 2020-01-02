@@ -33,12 +33,15 @@
         transition: box-shadow 0.3s ease;
     }
 
-    .message:hover {
+    .message:hover,
+    .form-date__input:hover,
+    .form-date__text:hover {
         box-shadow: 0 0 6px #0f4c81;
     }
 
     .messages {
         margin: 0 15px;
+        overflow-x: auto;
     }
 
     .message__date {
@@ -59,25 +62,24 @@
         margin-right: 20px;
     }
 
-    .form-date__input {
+    .form-date__input,
+    .form-date__text {
         margin-bottom: 5px;
         border: 0;
+        transition: box-shadow 0.3s ease;
     }
 
     .form-date__input {
         height: 33px;
         border-radius: 7px;
         outline: 1px;
-        background-color: #0f4c81;
-        color: white;
+        background-color: white;
         padding: 3px;
-        border: 2px solid #0f4c81;
     }
 
     .form-date__text {
         border-radius: 7px;
-        background-color: #0f4c81;
-        color: white;
+        background-color: white;
         resize: vertical;
         min-height: 100px;
     }
@@ -106,7 +108,7 @@
     .form-date {
         width: 500px;
         height: 550px;
-        background-color: rgb(216, 225, 225);
+        background-color: #eaeaea;
         border-radius: 10px;
         padding: 20px;
     }
