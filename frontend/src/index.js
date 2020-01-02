@@ -14,6 +14,18 @@ export const themesVillage = [
     'children',
 ];
 
+const themesSnob = [
+    'theme/257/',
+    'theme/161/',
+    'theme/904/',
+    'tag/52837/',
+    'tag/1768/',
+    'theme/545/',
+    'theme/214/',
+    'theme/154/',
+    'theme/164/',
+];
+
 const store = Store.getInstance();
 
 const renderForm = (message, ) => {
@@ -40,6 +52,7 @@ const getAllMessages = async () => {
     const articleColumn = Articles.createColumn('Village', (message, ) => renderForm(message,),);
     const articleColumnKnife = Articles.createColumn('Knife', (message, ) => renderForm(message,),);
     const articleColumnVC = Articles.createColumn('VC', (message, ) => renderForm(message,),);
+    const articleColumnSnob = Articles.createColumn('Snob', (message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -53,10 +66,12 @@ const getAllMessages = async () => {
     Messages.addColumn(articleColumn,);
     Messages.addColumn(articleColumnKnife,);
     Messages.addColumn(articleColumnVC,);
+    Messages.addColumn(articleColumnSnob,);
 
     loadVillage(Articles,);
     loadKnife(Articles,);
     loadVC(Articles,);
+    loadSnob(Articles,);
 };
 
 const loadVillage = (articlesContainer, ) => {
@@ -64,6 +79,14 @@ const loadVillage = (articlesContainer, ) => {
         const result = await fetch(`http://localhost:3000/api/village/articles?theme=${theme}`,);
         const articles = await result.json();
         articlesContainer.render(new Map(articles,), 'Village',);
+    },);
+};
+
+const loadSnob = (articlesContainer, ) => {
+    themesSnob.forEach(async (theme, ) => {
+        const result = await fetch(`http://localhost:3000/api/snob/articles?params=${theme}`,);
+        const articles = await result.json();
+        articlesContainer.render(new Map(articles,), 'Snob',);
     },);
 };
 
