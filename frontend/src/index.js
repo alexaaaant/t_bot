@@ -18,11 +18,23 @@ const renderChangeForm = (message, ) => {
     document.body.appendChild(Form.render(0, 0,),);
 };
 
-const getAllMessages = async () => {
+const getMessagesFromDb = async () => {
     const res = await fetch('http://localhost:3000/api/messages/all',);
     const messages = await res.json();
-    const todoMessages = messages.filter((message, ) => message.status === '0',);
-    const doneMessages = messages.filter((message, ) => message.status === '1',);
+    return messages;
+};
+
+const getAllMessages = async () => {
+    const messages = await getMessagesFromDb();
+    let todoMessages = [];
+    let doneMessages = [];
+    messages.forEach((message, ) => {
+        if (message.status === '0') {
+            todoMessages.push(message,);
+        } else if (message.status === '1') {
+            doneMessages.push(message,);
+        }
+    },);
 
     const Messages = new MessagesContainer();
     const todoColumn = Messages.createColumn('To do', todoMessages, (message, ) => renderChangeForm(message,),);
