@@ -1,21 +1,22 @@
 import Message from '../components/message';
 import Column from '../components/column';
-import { themesSnob, themesVillage, sites, } from '../constants';
+import { sites, } from '../constants';
+import * as actions from '../actions/articlesActions';
 
 class Articles {
     constructor() {
         this.date = null;
         this.columns = new Map();
     }
-    render(articles, name, ) {
-        articles.forEach(async (article, title, ) => {
+    render(params, ) {
+        params.articles.forEach(async (article, title, ) => {
             const newEl = await this.createArticleElement(title, article,);
-            this.columns.get(name,).addMessage(newEl,);
+            this.columns.get(params.name,).addMessage(newEl,);
         },);
     }
 
     createColumns(handler, ) {
-        sites.forEach((site, ) => {
+        Object.values(sites,).forEach((site, ) => {
             this.columns.set(site, new Column(site, [], handler,),);
         },);
     }
@@ -41,75 +42,10 @@ class Articles {
     }
 
     loadArticles() {
-        this.loadForbes();
-        this.loadKnife();
-        this.loadNakedScience();
-        this.loadNewtonew();
-        this.loadNplus();
-        this.loadSnob();
-        this.loadVC();
-        this.loadVice();
-        this.loadVillage();
-    }
-
-    loadVillage() {
-        themesVillage.forEach(async (theme, ) => {
-            const result = await fetch(`http://localhost:3000/api/village/articles?theme=${theme}`,);
-            const articles = await result.json();
-            this.render(new Map(articles,), 'Village',);
+        Object.values(actions,).forEach((action, ) => {
+            action(this.render.bind(this,),);
         },);
     }
-
-    loadSnob() {
-        themesSnob.forEach(async (theme, ) => {
-            const result = await fetch(`http://localhost:3000/api/snob/articles?params=${theme}`,);
-            const articles = await result.json();
-            this.render(new Map(articles,), 'Snob',);
-        },);
-    }
-
-    async loadKnife() {
-        const result = await fetch('http://localhost:3000/api/knife/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'Knife',);
-    }
-
-    async loadVC() {
-        const result = await fetch('http://localhost:3000/api/vc/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'VC',);
-    }
-
-    async loadNakedScience() {
-        const result = await fetch('http://localhost:3000/api/nakedScience/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'NakedScience',);
-    }
-
-    async loadNewtonew() {
-        const result = await fetch('http://localhost:3000/api/newtonew/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'Newtonew',);
-    }
-
-    async loadVice() {
-        const result = await fetch('http://localhost:3000/api/vice/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'Vice',);
-    }
-
-    async loadNplus() {
-        const result = await fetch('http://localhost:3000/api/nplus/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'Nplus',);
-    }
-
-    async loadForbes() {
-        const result = await fetch('http://localhost:3000/api/forbes/articles',);
-        const articles = await result.json();
-        this.render(new Map(articles,), 'Forbes',);
-    }
-
 }
 
 export default Articles;

@@ -18,14 +18,14 @@ export const themesSnob = [
     'theme/164/',
 ];
 
-export const sites = [
-    'Village',
-    'Knife',
-    'VC',
-    'Snob',
-    'NakedScience',
-    'Newtonew',
-    'Vice',
-    'Nplus',
-    'Forbes',
-];
+export const sites = {
+    village: 'Village',
+    knife: 'Knife',
+    vc: 'VC',
+    snob: 'Snob',
+    nakedScience: 'NakedScience',
+    newtonew: 'Newtonew',
+    vice: 'Vice',
+    nplus: 'Nplus',
+    forbes: 'Forbes',
+};
