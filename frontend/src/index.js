@@ -6,26 +6,6 @@ import ChangeForm from './components/form/changeForm';
 import Store from './store';
 import './webSocket';
 
-export const themesVillage = [
-    'city',
-    'people',
-    'business',
-    'weekend',
-    'children',
-];
-
-const themesSnob = [
-    'theme/257/',
-    'theme/161/',
-    'theme/904/',
-    'tag/52837/',
-    'tag/1768/',
-    'theme/545/',
-    'theme/214/',
-    'theme/154/',
-    'theme/164/',
-];
-
 const store = Store.getInstance();
 
 const renderForm = (message, ) => {
@@ -49,15 +29,7 @@ const getAllMessages = async () => {
     const doneColumn = Messages.createColumn('Done', doneMessages,);
 
     const Articles = new ArticlesContainer();
-    const articleColumn = Articles.createColumn('Village', (message, ) => renderForm(message,),);
-    const articleColumnKnife = Articles.createColumn('Knife', (message, ) => renderForm(message,),);
-    const articleColumnVC = Articles.createColumn('VC', (message, ) => renderForm(message,),);
-    const articleColumnSnob = Articles.createColumn('Snob', (message, ) => renderForm(message,),);
-    const articleColumnNakedScience = Articles.createColumn('NakedScience', (message, ) => renderForm(message,),);
-    const articleColumnNewtonew = Articles.createColumn('Newtonew', (message, ) => renderForm(message,),);
-    const articleColumnVice = Articles.createColumn('Vice', (message, ) => renderForm(message,),);
-    const articleColumnNplus = Articles.createColumn('Nplus', (message, ) => renderForm(message,),);
-    const articleColumnForbes = Articles.createColumn('Forbes', (message, ) => renderForm(message,),);
+    Articles.createColumns((message, ) => renderForm(message,),);
 
     const Button = new CreateButton();
     Button.setHandlerClick(() => renderForm({},),);
@@ -66,85 +38,14 @@ const getAllMessages = async () => {
     Messages.render();
     store.addColumn('0', todoColumn,);
     store.addColumn('1', doneColumn,);
+
     Messages.addColumn(todoColumn,);
     Messages.addColumn(doneColumn,);
-    Messages.addColumn(articleColumn,);
-    Messages.addColumn(articleColumnKnife,);
-    Messages.addColumn(articleColumnVC,);
-    Messages.addColumn(articleColumnSnob,);
-    Messages.addColumn(articleColumnNakedScience,);
-    Messages.addColumn(articleColumnNewtonew,);
-    Messages.addColumn(articleColumnVice,);
-    Messages.addColumn(articleColumnNplus,);
-    Messages.addColumn(articleColumnForbes,);
 
-    loadVillage(Articles,);
-    loadKnife(Articles,);
-    loadVC(Articles,);
-    loadSnob(Articles,);
-    loadNakedScience(Articles,);
-    loadNewtonew(Articles,);
-    loadVice(Articles,);
-    loadNplus(Articles,);
-    loadForbes(Articles,);
-};
-
-const loadVillage = (articlesContainer, ) => {
-    themesVillage.forEach(async (theme, ) => {
-        const result = await fetch(`http://localhost:3000/api/village/articles?theme=${theme}`,);
-        const articles = await result.json();
-        articlesContainer.render(new Map(articles,), 'Village',);
+    Articles.getColumns().forEach((val, ) => {
+        Messages.addColumn(val,);
     },);
-};
-
-const loadSnob = (articlesContainer, ) => {
-    themesSnob.forEach(async (theme, ) => {
-        const result = await fetch(`http://localhost:3000/api/snob/articles?params=${theme}`,);
-        const articles = await result.json();
-        articlesContainer.render(new Map(articles,), 'Snob',);
-    },);
-};
-
-const loadKnife = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/knife/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'Knife',);
-};
-
-const loadVC = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/vc/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'VC',);
-};
-
-const loadNakedScience = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/nakedScience/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'NakedScience',);
-};
-
-const loadNewtonew = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/newtonew/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'Newtonew',);
-};
-
-const loadVice = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/vice/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'Vice',);
-};
-
-const loadNplus = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/nplus/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'Nplus',);
-};
-
-const loadForbes = async (articlesContainer, ) => {
-    const result = await fetch('http://localhost:3000/api/forbes/articles',);
-    const articles = await result.json();
-    articlesContainer.render(new Map(articles,), 'Forbes',);
+    Articles.loadArticles();
 };
 
 getAllMessages();
