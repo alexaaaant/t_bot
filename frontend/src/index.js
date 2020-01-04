@@ -42,10 +42,7 @@ const getAllMessages = async () => {
     Messages.addColumn(todoColumn,);
     Messages.addColumn(doneColumn,);
 
-    Articles.getColumns().forEach((val, ) => {
-        Messages.addColumn(val,);
-    },);
-    Articles.loadArticles();
+    Articles.renderArticles(Messages,);
 };
 
 getAllMessages();

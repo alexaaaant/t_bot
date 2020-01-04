@@ -63,6 +63,13 @@ class Articles {
         return `*${title}*\n\n${article.preamble}\n${article.link}`;
     }
 
+    renderArticles(container,) {
+        this.getColumns().forEach((val, ) => {
+            container.addColumn(val,);
+        },);
+        this.loadArticles();
+    }
+
     loadArticles() {
         this.loadForbes();
         this.loadKnife();
