@@ -1,5 +1,5 @@
 import Form from './form';
-import { deleteTask, changeTask, } from '../../actions';
+import { deleteTask, changeTask, } from '../../actions/actions';
 
 class ChangeForm extends Form {
     constructor(params = {}, ) {

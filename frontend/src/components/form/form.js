@@ -1,4 +1,4 @@
-import { planTask, } from '../../actions';
+import { planTask, } from '../../actions/actions';
 
 class FormComponent {
     constructor(params = {}, ) {

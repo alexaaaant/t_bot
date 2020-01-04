@@ -1,5 +1,5 @@
-import Store from './store';
-import Message from './components/message';
+import Store from '../store';
+import Message from '../components/message';
 
 const store = Store.getInstance();
 
