@@ -8,7 +8,6 @@ const router = new Router({ prefix: '/vice', },);
 
 router
     .get('/articles', async (ctx, ) => {
-        const { params, } = ctx.request.query;
         const res = await request(url,);
         const dom = new jsdom.JSDOM(res,);
         let articles = dom.window.document.querySelectorAll('a.grid__wrapper__card',);
@@ -17,7 +16,7 @@ router
         articles.forEach((article, ) => {
             const title = article.querySelector('.grid__wrapper__card__text__title',).textContent.trim();
             articlesObj.set(title, {
-                link: `${url}${article.href}`,
+                link: `https://www.vice.com${article.href}`,
                 preamble: article.querySelector('.grid__wrapper__card__text__summary',).textContent,
             },);
         },);

@@ -28,9 +28,7 @@ class Articles {
     }
 
     async createText(title, article, ) {
-        const res = await fetch(`http://localhost:${process.env.PORT}/api/task/shortLink?url=${article.link}`,);
-        const url = await res.json();
-        return `*${title}*\n\n${article.preamble}\n${url.url}`;
+        return `*${title}*\n\n${article.preamble}\n${article.link}`;
     }
 
 }

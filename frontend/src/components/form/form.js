@@ -37,13 +37,23 @@ class FormComponent {
         return this.formContainer;
     }
 
-    handleSubmit(e, ) {
+    async handleSubmit(e, ) {
         e.preventDefault();
         const { date, time, text, } = e.target.elements;
         this.unRender();
         this.date = new Date(`${date.value} ${time.value}`,);
         this.text = text.value;
-        planTask({ date: this.date.toUTCString(), text: this.text, }, this.message,);
+
+        const regLink = new RegExp('(http|https)://(.*)',);
+        const link = this.text.match(regLink,)[0];
+        const shortLink = await this.shortLink(link,);
+
+        planTask({ date: this.date.toUTCString(), text: this.text.replace(link, shortLink.url,), }, this.message,);
+    }
+
+    async shortLink(link, ) {
+        const res = await fetch(`http://localhost:${process.env.PORT}/api/task/shortLink?url=${link}`,);
+        return await res.json();
     }
 
     createForm() {

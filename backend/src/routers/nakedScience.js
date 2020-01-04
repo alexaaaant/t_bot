@@ -18,7 +18,7 @@ router
         articles.forEach((article, ) => {
             const title = article.querySelector('a',).textContent.trim();
             articlesObj.set(title, {
-                link: `${url}${article.querySelector('a',).href}`,
+                link: `${article.querySelector('a',).href}`,
                 preamble: `${article.querySelector('p',).textContent}`,
             },);
         },);
