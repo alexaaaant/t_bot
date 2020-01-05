@@ -21,13 +21,14 @@ const renderChangeForm = (message, ) => {
 const getMessagesFromDb = async () => {
     const res = await fetch('http://localhost:3000/api/messages/all',);
     const messages = await res.json();
-    return messages;
+    return messages.sort((a, b,) => new Date(b.date,) - new Date(a.date,),);
 };
 
 const getAllMessages = async () => {
     const messages = await getMessagesFromDb();
     let todoMessages = [];
     let doneMessages = [];
+    console.log(messages,);
     messages.forEach((message, ) => {
         if (message.status === '0') {
             todoMessages.push(message,);
